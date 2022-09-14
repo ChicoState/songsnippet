@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:song_snippet/resources/dimen.dart';
+import 'package:song_snippet/resources/strings.dart';
 
 
 class Home extends StatefulWidget {
@@ -22,7 +23,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Nusic"),
+        title: Text(SongSnippetStrings.title),
       ),
       body: ListView.builder(
         itemCount: songs.length,
