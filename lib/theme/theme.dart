@@ -5,9 +5,9 @@ import 'colors.dart';
 
 ThemeData getTheme() {
   return ThemeData(
+    primaryColor: SongSnippetColors.creamsicle,
     colorScheme: ColorScheme.fromSwatch(
       primarySwatch: SongSnippetColors.burgandy,
-      primaryColorDark: SongSnippetColors.maple,
     )
   );
 }
