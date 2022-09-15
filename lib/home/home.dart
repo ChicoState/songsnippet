@@ -15,7 +15,7 @@ class _HomeState extends State<Home> {
 
 
   //test array, later on we will be getting this data from the backend
-  final songs = ["test", "test2", "test3","test",
+  final songNames = ["test", "test2", "test3","test",
                 "test2", "test3","test", "test2", "test3"];
 
 
@@ -26,16 +26,16 @@ class _HomeState extends State<Home> {
         title: Text(SongSnippetStrings.title),
       ),
       body: ListView.builder(
-        itemCount: songs.length,
+        itemCount: songNames.length,
         itemBuilder: (context, position) {
-          return getRow(context, position, songs[position]);
+          return createRow(context, position, songNames[position]);
         },
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
 
-  Widget getRow(BuildContext context, int position, String song) {
+  Widget createRow(BuildContext context, int position, String song) {
     return GestureDetector(
       onTap: () {
           log('row $position');
