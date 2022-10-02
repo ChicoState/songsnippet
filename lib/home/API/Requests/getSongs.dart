@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
+import '../ResponseObjects/songListObject.dart';
 import 'urlProvider.dart';
 import 'httpHeaderStrings.dart';
 
 
-Future<void> getSongList(int songCount) async {
+Future<SongList> getSongList() async {
   final response = await http.get(
     Uri.parse(SongSnippetURLs.songListURL),
     headers: <String, String>{
@@ -13,7 +13,7 @@ Future<void> getSongList(int songCount) async {
     },
   );
   if (response.statusCode == 201) {
-
+    return SongList.fromJson(jsonDecode(response.body));
   } else {
     throw Exception("Failed to get list of songs");
   }
