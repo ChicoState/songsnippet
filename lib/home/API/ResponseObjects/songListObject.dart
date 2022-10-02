@@ -9,7 +9,7 @@ class SongList {
     required this.songList
   });
   
-  factory SongList.fromJson(List<Map<String,dynamic>> json) {
+  factory SongList.fromJson(List<dynamic> json) {
     List<SongObject> songListTemp = [];
     json.forEach((element) {
       songListTemp.add(SongObject.fromJson(element));

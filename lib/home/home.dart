@@ -32,15 +32,14 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(SongSnippetStrings.title),
+          title: const Text(SongSnippetStrings.title),
         ),
         body: FutureBuilder(
           future: songList,
           builder: (BuildContext context, AsyncSnapshot<SongList> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasError) {
-                print(snapshot.error);
-                return Center(
+                return const Center(
                   child: Text("Something went wrong"),
                 );
               } else {
@@ -60,21 +59,6 @@ class _HomeState extends State<Home> {
                     ),
               );
             }
-            // if (snapshot.connectionState == ConnectionState.done &&
-            //     !snapshot.hasError && snapshot.hasData) {
-            //     return   ListView.builder(
-            //       itemCount: snapshot.data?.songList.length,
-            //       itemBuilder: (context, position) {
-            //         return createRow(context, position,
-            //             snapshot.data?.songList[position].name);
-            //       });
-            // } else {
-            //   return SizedBox(
-            //     width: 60,
-            //     height: 60,
-            //     child: CircularProgressIndicator(),
-            //   );
-            // }
           },
         ) // This trailing comma makes auto-formatting nicer for build methods.
     );
