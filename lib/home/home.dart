@@ -35,25 +35,54 @@ class _HomeState extends State<Home> {
           title: Text(SongSnippetStrings.title),
         ),
         body: FutureBuilder(
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            if snap
+          future: songList,
+          builder: (BuildContext context, AsyncSnapshot<SongList> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError) {
+                print(snapshot.error);
+                return Center(
+                  child: Text("Something went wrong"),
+                );
+              } else {
+                return ListView.builder(
+                  itemCount: snapshot.data?.songList.length,
+                  itemBuilder: (context, position) {
+                    return createRow(context, position,
+                        snapshot.data?.songList[position].name);
+                  });
+              }
+            } else {
+              return const Center(
+                child: SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: CircularProgressIndicator(),
+                    ),
+              );
+            }
+            // if (snapshot.connectionState == ConnectionState.done &&
+            //     !snapshot.hasError && snapshot.hasData) {
+            //     return   ListView.builder(
+            //       itemCount: snapshot.data?.songList.length,
+            //       itemBuilder: (context, position) {
+            //         return createRow(context, position,
+            //             snapshot.data?.songList[position].name);
+            //       });
+            // } else {
+            //   return SizedBox(
+            //     width: 60,
+            //     height: 60,
+            //     child: CircularProgressIndicator(),
+            //   );
+            // }
           },
         ) // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
-  // ListView.builder(
-  // itemCount: songList.length,
-  // itemBuilder: (context, position) {
-  // return createRow(context, position, songNames[position]);
-  // },
-  // ),
-  FutureBuilder<SongList> SongListBuilder() {
-    return
-  }
 
 
-  Widget createRow(BuildContext context, int position, String song) {
+  Widget createRow(BuildContext context, int position, String? song) {
     return GestureDetector(
         onTap: () {
           log('row $position');
