@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
 
 class SongList {
   static const keySongList = "songList";
@@ -26,20 +23,20 @@ class SongObject {
   static const keyArtist = "artist";
   static const keyStart = "start";
   static const keyEnd = "end";
-  static const keySong = "song";
+  static const keySongUrl = "song";
 
   final String name;
   final String artist;
   final int start;
   final int end;
-  final String song;
+  final String songUrl;
 
   const SongObject({
     required this.name,
     required this.artist,
     required this.start,
     required this.end,
-    required this.song
+    required this.songUrl
   });
 
   factory SongObject.fromJson(Map<String, dynamic> json) {
@@ -47,6 +44,6 @@ class SongObject {
         artist: json[keyArtist],
         start: json[keyStart],
         end: json[keyEnd],
-        song: json[keySong]);
+        songUrl: json[keySongUrl]);
   }
 }
