@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:song_snippet/resources/dimen.dart';
 import 'package:song_snippet/resources/strings.dart';
-import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'music_utils.dart';
 
 class Home extends StatefulWidget {
@@ -27,18 +26,22 @@ class _HomeState extends State<Home> {
     super.dispose();
   }
 
-  //test array, later on we will be getting this data from the backend
   final songNames = [
-    "test",
-    "test2",
-    "test3",
-    "test",
-    "test2",
-    "test3",
-    "test",
-    "test2",
-    "test3"
+    "I Really Want to Stay at Your House",
+    "Yi Jian Mei",
   ];
+
+  final artistNames = [
+    "Rosa Walton & Hallie Coggins",
+    "Yu-Ching Fei",
+  ];
+
+  final clipTime = [
+    220,
+    91,
+  ];
+
+  static const assetsPath = 'assets/audio/';
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +52,13 @@ class _HomeState extends State<Home> {
       body: ListView.builder(
         itemCount: songNames.length,
         itemBuilder: (context, position) {
-          return createRow(context, position, songNames[position]);
+          return createRow(context, position, songNames[position], artistNames[position], clipTime[position]);
         },
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
-  Widget createRow(BuildContext context, int position, String song) {
+  Widget createRow(BuildContext context, int position, String song, String artist, int start) {
     return GestureDetector(
         onTap: () {
           log('row $position');
@@ -69,7 +72,10 @@ class _HomeState extends State<Home> {
               borderRadius: BorderRadius.circular(5.0),
             ),
             child: TextButton(
-              onPressed: _musicUtils.play,
+              onPressed: () async {
+                await _musicUtils.setAsset('$assetsPath$artist - $song.mp3');
+                _musicUtils.play(start, start+10);
+              },
               child: Text(song),
             ),
           ),
