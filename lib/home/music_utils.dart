@@ -17,6 +17,10 @@ class MusicUtils {
     return _audioPlayer.setAsset(asset);
   }
 
+  Future<Duration?> setUrl(String url) async {
+    return _audioPlayer.setUrl(url);
+  }
+
   void play(int startTime, int endTime) async {
     await _audioPlayer.setClip(start: Duration(seconds: startTime), end: Duration(seconds:endTime));
     _audioPlayer.play();
