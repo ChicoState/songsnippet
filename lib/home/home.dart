@@ -31,21 +31,6 @@ class _HomeState extends State<Home> {
     super.dispose();
   }
 
-  // final songNames = [
-  //   "I Really Want to Stay at Your House",
-  //   "Yi Jian Mei",
-  // ];
-
-  // final artistNames = [
-  //   "Rosa Walton & Hallie Coggins",
-  //   "Yu-Ching Fei",
-  // ];
-
-  // final clipTime = [
-  //   220,
-  //   91,
-  // ];
-
   static const assetsPath = 'assets/audio/';
 
   @override
