@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'theme/theme.dart';
-import 'home/home.dart';
+import 'Resources/theme.dart';
+import 'Home/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Song Snippet',
       theme: getTheme(),
       home: const Home(),
     );
