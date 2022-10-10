@@ -12,7 +12,6 @@ Future<SongList> getSongList() async {
       HTTPHeaderStrings.contentType : HTTPHeaderStrings.applicationEncoding,
     },
   );
-  print(response.statusCode);
   if (response.statusCode == 200) {
     return SongList.fromJson(jsonDecode(response.body));
   } else {
