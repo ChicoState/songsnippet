@@ -16,12 +16,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late final MusicUtils _musicUtils;
-  late HomeViewModel homeViewModel;
+  //Lazy initialized
+  late HomeViewModel homeViewModel = HomeViewModel();
 
   @override
   void initState() {
     super.initState();
-    homeViewModel = HomeViewModel();
     _musicUtils = MusicUtils();
   }
 
