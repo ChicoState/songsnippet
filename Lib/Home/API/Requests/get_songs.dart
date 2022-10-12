@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../ResponseObjects/songListObject.dart';
-import 'urlProvider.dart';
-import 'httpHeaderStrings.dart';
+import '../Response_Objects/song_list_object.dart';
+import '../../../Utils/API_Utils/url_provider.dart';
+import '../../../Utils/API_Utils/http_header_strings.dart';
 
 
 Future<SongList> getSongList() async {

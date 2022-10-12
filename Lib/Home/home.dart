@@ -1,10 +1,11 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:song_snippet/resources/dimen.dart';
-import 'package:song_snippet/resources/strings.dart';
-import 'music_utils.dart';
-import 'API/Requests/getSongs.dart';
-import 'API/ResponseObjects/songListObject.dart';
+import '../Utils/music_utils.dart';
+import '../Resources/strings.dart';
+import '../Resources/dimen.dart';
+import 'home_view_model.dart';
+import '../Home/API/Response_Objects/song_list_object.dart';
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -15,13 +16,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late final MusicUtils _musicUtils;
-  late Future<SongList> songList;
-
+  //Lazy initialized
+  late HomeViewModel homeViewModel = HomeViewModel();
 
   @override
   void initState() {
     super.initState();
-    songList = getSongList();
     _musicUtils = MusicUtils();
   }
 
@@ -31,7 +31,6 @@ class _HomeState extends State<Home> {
     super.dispose();
   }
 
-  static const assetsPath = 'assets/audio/';
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +39,11 @@ class _HomeState extends State<Home> {
         title: const Text(SongSnippetStrings.title),
       ),
       body: FutureBuilder(
-        future: songList,
+        future: homeViewModel.songList,
         builder: (BuildContext context, AsyncSnapshot<SongList> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
-              return const Center( child: Text ("Something went wrong"),);
+              return const Center( child: Text (SongSnippetStrings.error),);
             } else {
               return ListView.builder(
                 itemCount: snapshot.data?.songList.length,
@@ -55,8 +54,8 @@ class _HomeState extends State<Home> {
           } else {
             return const Center(
               child: SizedBox(
-                width: 60,
-                height: 60,
+                width: SongSnippetDimen.padding8x,
+                height: SongSnippetDimen.padding8x,
                 child: CircularProgressIndicator(),
               )
             );
