@@ -62,7 +62,23 @@ class _HomeState extends State<Home> {
             );
           }
         },
-      )
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const<BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Liked Songs',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.audiotrack),
+            label: 'Search Songs',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.upload),
+            label: 'Upload Songs',
+          ),
+        ],
+      ),
     );
   }
 
