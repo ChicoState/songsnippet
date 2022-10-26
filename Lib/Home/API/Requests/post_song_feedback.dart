@@ -1,16 +1,22 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../../../Utils/API_Utils/http_header_strings.dart';
 import '../Response_Objects/song_list_object.dart';
 import '../../../Utils/API_Utils/url_provider.dart';
-import '../../../Utils/API_Utils/http_header_strings.dart';
 
 
-Future<SongList> getSongList() async {
-  final response = await http.get(
+Future<SongList> postSongFeedback(int musicID, bool like) async {
+  const String keyMusicID = 'music';
+  const String keyUserID = 'user';
+  final response = await http.post(
     Uri.parse(SongSnippetURLs.songListURL),
     headers: <String, String>{
       HTTPHeaderStrings.contentType : HTTPHeaderStrings.applicationEncoding,
     },
+    body: jsonEncode(<String, String>{
+      keyMusicID: musicID.toString(),
+      keyUserID: like.toString()
+    }),
   );
   if (response.statusCode == 200) {
     return SongList.fromJson(jsonDecode(response.body));
@@ -18,3 +24,4 @@ Future<SongList> getSongList() async {
     throw Exception("Failed to get list of songs, status code = ${response.statusCode}");
   }
 }
+
