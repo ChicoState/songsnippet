@@ -3,8 +3,9 @@ from django.contrib.auth.models import User
 
 
 class SongModel(models.Model):
-    name = models.CharField(max_length=60)
-    artist = models.CharField(max_length=60)
+    songName = models.CharField(max_length=60)
+    artist = models.ForeignKey(User, on_delete=models.CASCADE)
+    year = models.PositiveIntegerField()
     start = models.PositiveIntegerField()
     end = models.PositiveIntegerField()
     song = models.FileField(upload_to="mp3s")

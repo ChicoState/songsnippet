@@ -7,7 +7,7 @@ from .models import FeedbackModel
 class SongModelSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = SongModel
-        fields = ('name', 'artist', 'start', 'end', 'song')
+        fields = ('songName', 'year', 'artist', 'start', 'end', 'song')
 
 class SongFeebackSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
