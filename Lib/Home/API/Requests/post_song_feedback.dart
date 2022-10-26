@@ -9,7 +9,7 @@ Future<SongList> postSongFeedback(int musicID, bool like) async {
   const String keyMusicID = 'music';
   const String keyUserID = 'user';
   final response = await http.post(
-    Uri.parse(SongSnippetURLs.songListURL),
+    Uri.parse(SongSnippetURLs.songFeedbackURL),
     headers: <String, String>{
       HTTPHeaderStrings.contentType : HTTPHeaderStrings.applicationEncoding,
     },
@@ -18,7 +18,7 @@ Future<SongList> postSongFeedback(int musicID, bool like) async {
       keyUserID: like.toString()
     }),
   );
-  if (response.statusCode == 200) {
+  if (response.statusCode == 201) {
     return SongList.fromJson(jsonDecode(response.body));
   } else {
     throw Exception("Failed to get list of songs, status code = ${response.statusCode}");
