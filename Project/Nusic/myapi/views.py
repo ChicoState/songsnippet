@@ -6,8 +6,6 @@ from rest_framework.response import Response
 from rest_framework import viewsets, status
 
 
-
-
 class SongViewSet(viewsets.ModelViewSet):
     queryset = SongModel.objects.all().order_by('name')
     serializer_class = SongModelSerializer
@@ -24,10 +22,15 @@ def SongFeedback(request):
             song=songFeedbackSerializer.data['song']
         ).first()
 
-        #if a like or dislike somehow exists, delete before creating a new one
+        # if a like or dislike somehow exists, delete before creating a new one
         if prevLikeObject is not None:
             prevLikeObject.delete()
 
-        songFeedbackSerializer.save()
+        SongFeedback.create(
+            creator=request.user,
+            song=request.data['song'],
+            like=request.data['like']
+        )
+
         return Response(status=status.HTTP_201_CREATED)
     return Response(songFeedbackSerializer.errors, status=status.HTTP_400_BAD_REQUEST)

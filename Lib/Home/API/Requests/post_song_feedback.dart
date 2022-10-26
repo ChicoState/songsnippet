@@ -6,8 +6,8 @@ import '../../../Utils/API_Utils/url_provider.dart';
 
 
 Future<SongList> postSongFeedback(int musicID, bool like) async {
-  const String keyMusicID = 'music';
-  const String keyUserID = 'user';
+  const String keyMusicID = 'song';
+  const String keyLikeID = 'like';
   final response = await http.post(
     Uri.parse(SongSnippetURLs.songFeedbackURL),
     headers: <String, String>{
@@ -15,7 +15,7 @@ Future<SongList> postSongFeedback(int musicID, bool like) async {
     },
     body: jsonEncode(<String, String>{
       keyMusicID: musicID.toString(),
-      keyUserID: like.toString()
+      keyLikeID: like.toString()
     }),
   );
   if (response.statusCode == 201) {
