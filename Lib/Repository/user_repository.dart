@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:meta/meta.dart';
 import 'package:song_snippet/Login/API/Requests/get_user_object.dart';
 import 'package:song_snippet/Dao/user_dao.dart';
-import 'package:song_snippet/Login/API/Response/user_object.dart';
+import '../Login/API/Response/user_object.dart';
 import 'package:song_snippet/model/api_model.dart';
 
 class UserRepository {

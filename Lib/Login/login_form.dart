@@ -23,10 +23,7 @@ class _LoginFormState extends State<LoginForm> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginFaliure) {
-          Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text('${state.error}'),
-            backgroundColor: Colors.red,
-          ));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${state.error}'), backgroundColor: Colors.red,));
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(
@@ -55,7 +52,7 @@ class _LoginFormState extends State<LoginForm> {
                       height: MediaQuery.of(context).size.width * 0.22,
                       child: Padding(
                         padding: EdgeInsets.only(top: 30.0),
-                        child: RaisedButton(
+                        child: ElevatedButton(
                           onPressed: state is! LoginLoading
                               ? _onLoginButtonPressed
                               : null,

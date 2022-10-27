@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:song_snippet/Repository/user_repository.dart';
 import 'package:song_snippet/bloc/authentication_bloc.dart';
 import 'package:song_snippet/Splash/splash.dart';
-import 'package:song_snippet/Login/login_page.dart';
+import '../Lib/Login/login_page.dart';
 import 'package:song_snippet/Common/common.dart';
 
 void main() {
@@ -48,7 +48,7 @@ class App extends StatelessWidget {
             return const Home();
           }
           if (state is AuthenticationUnauthenticated) {
-            return LoginPage(userRepository: userRepository, key: null,);
+            return LoginPage(userRepository: userRepository, key: null);
           }
           return LoadingIndicator();
         },

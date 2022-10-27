@@ -10,7 +10,7 @@ import 'package:song_snippet/Login/login_form.dart';
 class LoginPage extends StatelessWidget {
   final UserRepository userRepository;
 
-  LoginPage({Key? key, required this.userRepository})
+  const LoginPage({Key? key, required this.userRepository})
       : assert(userRepository != null),
         super(key: key);
 
