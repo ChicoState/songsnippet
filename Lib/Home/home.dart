@@ -6,7 +6,7 @@ import '../Resources/dimen.dart';
 import 'home_view_model.dart';
 import '../Home/API/Response_Objects/song_list_object.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:song_snippet/bloc/authentication_bloc.dart';
+import '../bloc/authentication_bloc.dart';
 
 
 class Home extends StatefulWidget {

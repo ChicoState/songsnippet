@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:song_snippet/Login/bloc/login_bloc.dart';
+import '../Login/bloc/login_bloc.dart';
 
 class LoginForm extends StatefulWidget {
   @override

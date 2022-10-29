@@ -1,5 +1,5 @@
-import 'package:song_snippet/Database/user_databse.dart';
-import 'package:song_snippet/Login/Api/Response/user_object.dart';
+import '../Database/user_database.dart';
+import '../Login/API/Response/user_object.dart';
 
 class UserDao {
   final dbProvider = DatabaseProvider.dbProvider;

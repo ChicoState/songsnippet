@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:song_snippet/Login/API/Response/user_object.dart';
-import 'package:song_snippet/model/api_model.dart';
+import '../../../Login/API/Response/user_object.dart';
+import '../../../Model/api_model.dart';
 import '../../../Utils/API_Utils/url_provider.dart';
 
 final _base = "https://home-hub-app.herokuapp.com";
