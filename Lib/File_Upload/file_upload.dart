@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:http/http.dart' as http;
 import 'package:song_snippet/File_Upload/file_form_field.dart';
 import 'form_utils.dart';
 
@@ -13,19 +12,6 @@ class UploadPage extends StatefulWidget {
 }
 
 class _UploadPageState extends State<UploadPage> {
-  Future<String> uploadSong(
-      filename, url, songName, artistName, year, startTime, endTime) async {
-    var request = http.MultipartRequest('POST', Uri.parse(url));
-    request.files.add(await http.MultipartFile.fromPath('song', filename));
-    request.fields['start'] = startTime;
-    request.fields['end'] = endTime;
-    request.fields['artist'] = artistName;
-    request.fields['song'] = songName;
-    request.fields['year'] = year;
-    var result = await request.send();
-    return result.reasonPhrase!;
-  }
-
   String state = "";
   late File file;
   final _formKey = GlobalKey<FormState>();
@@ -57,7 +43,6 @@ class _UploadPageState extends State<UploadPage> {
           child: ListView(
             children: <Widget>[
               TextFormField(
-                //song
                 controller: songController,
                 validator: (value) {
                   if (value!.isEmpty || value.isValidName) {
@@ -105,7 +90,7 @@ class _UploadPageState extends State<UploadPage> {
                   return null;
                 },
                 decoration: const InputDecoration(
-                  labelText: '"Start Time',
+                  labelText: 'Start Time',
                   hintText: 'Start Time (in seconds)',
                 ),
               ),
