@@ -56,21 +56,11 @@ class _LoginFormState extends State<LoginForm> {
                           onPressed: state is! LoginLoading
                               ? _onLoginButtonPressed
                               : null,
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                              fontSize: 24.0,
-                            ),
-                          ),
-                          shape: StadiumBorder(
-                            side: BorderSide(
-                              color: Colors.black,
-                              width: 2,
-                            ),
+                          child: Text('Login'),
                           ),
                         ),
                       ),
-                    ),
+
                     Container(
                       child: state is LoginLoading
                           ? CircularProgressIndicator()
