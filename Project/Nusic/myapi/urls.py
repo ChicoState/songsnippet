@@ -11,5 +11,6 @@ router.register(r'allsongs', views.SongViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('songfeedback/', views.SongFeedback)
+    path('songfeedback/', views.SongFeedback),
+    path('initialRec/', views.InitialSongRecommendations)
 ]

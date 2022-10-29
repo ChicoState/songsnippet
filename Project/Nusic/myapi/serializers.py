@@ -9,7 +9,10 @@ class SongModelSerializer(serializers.HyperlinkedModelSerializer):
         model = SongModel
         fields = ('songName', 'year', 'artist', 'start', 'end', 'song')
 
-class SongFeebackSerializer(serializers.HyperlinkedModelSerializer):
+class SongFeedbackSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = FeedbackModel
         fields = ('creator', 'song', 'like')
+
+class InitialSongRecommendationsSerializer(serializers.Serializer):
+    count = serializers.IntegerField()

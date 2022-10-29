@@ -1,5 +1,5 @@
 class SongObject {
-  static const keyName = "name";
+  static const keyName = "songName";
   static const keyArtist = "artist";
   static const keyStart = "start";
   static const keyEnd = "end";
