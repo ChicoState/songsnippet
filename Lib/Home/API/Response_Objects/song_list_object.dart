@@ -1,8 +1,6 @@
 import 'song_object.dart';
 
 class SongList {
-  static const keySongList = "songList";
-
   final List<SongObject> songList;
 
   const SongList({
