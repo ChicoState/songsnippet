@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import '../Utils/music_utils.dart';
 import '../Resources/strings.dart';
 import '../Resources/dimen.dart';
+import 'API/Response_Objects/song_object.dart';
 import 'home_view_model.dart';
-import '../Home/API/Response_Objects/song_list_object.dart';
+import 'API/Response_Objects/song_list_object.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/authentication_bloc.dart';
 
