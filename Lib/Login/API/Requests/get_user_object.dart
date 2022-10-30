@@ -10,7 +10,6 @@ final _tokenEndpoint = "/api-token-auth/";
 final _tokenURL = _base + _tokenEndpoint;
 
 Future<Token> getToken(UserLogin userLogin) async {
-  print(_tokenURL);
   final http.Response response = await http.post(
     Uri.parse(SongSnippetURLs.songSnippetLogin),
     headers: <String, String>{

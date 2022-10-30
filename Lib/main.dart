@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'Home/home_view_model.dart';
 import 'Resources/theme.dart';
@@ -12,7 +14,7 @@ import 'Common/common.dart';
 
 void main() {
   final userRepository = UserRepository();
-
+  stdout.writeln("00000000000000000000000000000000000000000000000000000");
   runApp(
       BlocProvider<AuthenticationBloc>(
         create: (context) {
@@ -28,9 +30,8 @@ void main() {
 class App extends StatelessWidget {
   final UserRepository userRepository;
 
-  App({Key? key, required this.userRepository})
-      : assert(userRepository != null),
-        super(key: key);
+  const App({Key? key, required this.userRepository})
+      : super(key: key);
 
   @override
   Widget build (BuildContext context) {
