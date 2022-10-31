@@ -1,8 +1,10 @@
-import 'package:song_snippet/main.dart';
+import 'package:song_snippet/Home/API/Response_Objects/song_object.dart';
 import 'package:song_snippet/model/profile.dart';
 import 'package:song_snippet/widgets/action_button_widget.dart';
 import 'package:song_snippet/widgets/drag_widget.dart';
 import 'package:flutter/material.dart';
+import '../main.dart';
+import 'package:song_snippet/Home/API/Requests/get_songs_list.dart'
 
 class CardsStackWidget extends StatefulWidget {
   const CardsStackWidget({Key? key}) : super(key: key);
@@ -13,29 +15,8 @@ class CardsStackWidget extends StatefulWidget {
 
 class _CardsStackWidgetState extends State<CardsStackWidget>
     with SingleTickerProviderStateMixin {
-  List<Profile> draggableItems = [
-    const Profile(
-        songName: 'Gucci Gang',
-        artist: 'Lil Pump',
-        imageAsset: 'assets/images/gen_art.png'),
-    const Profile(
-        songName: 'Gucci Gang',
-        artist: 'Lil Pump',
-        imageAsset: 'assets/images/gen_art.png'),
-    const Profile(
-        songName: 'Gucci Gang',
-        artist: 'Lil Pump',
-        imageAsset: 'assets/images/gen_art.png'),
+  List<SongObject> draggableItems = [
 
-    const Profile(
-        songName: 'Gucci Gang',
-        artist: 'Lil Pump',
-        imageAsset: 'assets/images/gen_art.png'),
-
-    const Profile(
-        songName: 'Gucci Gang',
-        artist: 'Lil Pump',
-        imageAsset: 'assets/images/gen_art.png'),
   ];
 
   ValueNotifier<Swipe> swipeNotifier = ValueNotifier(Swipe.none);

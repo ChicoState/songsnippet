@@ -1,8 +1,8 @@
-import 'package:song_snippet/main.dart';
 import 'package:song_snippet/model/profile.dart';
 import 'package:song_snippet/widgets/profile_card.dart';
 import 'package:song_snippet/widgets/tag_widget.dart';
 import 'package:flutter/material.dart';
+import '../main.dart';
 
 class DragWidget extends StatefulWidget {
   const DragWidget({
