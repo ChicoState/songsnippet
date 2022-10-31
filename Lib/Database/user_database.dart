@@ -10,15 +10,9 @@ const userTable = 'userTable';
 class DatabaseProvider {
   static final DatabaseProvider dbProvider = DatabaseProvider();
 
-  late Database _database;
-
-  Future <Database> get database async {
-    if (_database != null){
-      return _database;
-    }
-    _database = await createDatabase();
-    return _database;
-  }
+  static Database? _database;
+  Future<Database> get database async =>
+      _database ??= await createDatabase();
 
   createDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();

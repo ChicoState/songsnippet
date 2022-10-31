@@ -10,6 +10,7 @@ final _tokenEndpoint = "/api-token-auth/";
 final _tokenURL = _base + _tokenEndpoint;
 
 Future<Token> getToken(UserLogin userLogin) async {
+  print(Uri.parse(SongSnippetURLs.songSnippetLogin));
   final http.Response response = await http.post(
     Uri.parse(SongSnippetURLs.songSnippetLogin),
     headers: <String, String>{
@@ -18,6 +19,7 @@ Future<Token> getToken(UserLogin userLogin) async {
     body: jsonEncode(userLogin.toDatabaseJson()),
   );
   if (response.statusCode == 200) {
+
     return Token.fromJson(json.decode(response.body));
   } else {
     print(json.decode(response.body).toString());
