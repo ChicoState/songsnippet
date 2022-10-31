@@ -6,6 +6,7 @@ from .views import UserRecordView
 
 router = routers.DefaultRouter()
 router.register(r'allsongs', views.SongViewSet)
+router.register(r'allusers', views.UserViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

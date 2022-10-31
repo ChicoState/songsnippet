@@ -1,3 +1,4 @@
+from stack_data import Serializer
 from rest_framework.decorators import api_view
 from .serializers import SongModelSerializer
 from .serializers import SongFeedbackSerializer
@@ -48,6 +49,10 @@ class UserRecordView(APIView):
 class SongViewSet(viewsets.ModelViewSet):
     queryset = SongModel.objects.all().order_by('artist')
     serializer_class = SongModelSerializer
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 #not sure if this works until we test
 def RecommendSong(user,count):

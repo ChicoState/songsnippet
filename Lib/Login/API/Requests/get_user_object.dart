@@ -18,11 +18,12 @@ Future<Token> getToken(UserLogin userLogin) async {
     },
     body: jsonEncode(userLogin.toDatabaseJson()),
   );
+  print(response.toString());
   if (response.statusCode == 200) {
 
     return Token.fromJson(json.decode(response.body));
   } else {
-    print(json.decode(response.body).toString());
+
     throw Exception(json.decode(response.body));
   }
 }

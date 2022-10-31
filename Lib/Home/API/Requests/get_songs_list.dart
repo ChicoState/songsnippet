@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import '../Response_Objects/song_list_object.dart';
 import '../../../Utils/API_Utils/url_provider.dart';
@@ -9,6 +10,7 @@ Future<SongList> getSongList() async {
     Uri.parse(SongSnippetURLs.songListURL),
     headers: <String, String>{
       HTTPHeaderStrings.contentType: HTTPHeaderStrings.applicationEncoding,
+      HttpHeaders.authorizationHeader: 'TOKEN b03cdb0207d3769420b392838c980d23e431877e'
     },
   );
   if (response.statusCode == 200) {
@@ -25,6 +27,7 @@ Future<SongList> getInitialSongRecommendations(int count) async {
     Uri.parse(SongSnippetURLs.songListURL),
     headers: <String, String>{
       HTTPHeaderStrings.contentType: HTTPHeaderStrings.applicationEncoding,
+      HttpHeaders.authorizationHeader: 'TOKEN b03cdb0207d3769420b392838c980d23e431877e'
     },
     body: jsonEncode(<String, int>{
       keyCount: count,
