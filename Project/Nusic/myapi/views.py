@@ -1,4 +1,3 @@
-from stack_data import Serializer
 from rest_framework.decorators import api_view
 from .serializers import SongModelSerializer
 from .serializers import SongFeedbackSerializer
@@ -8,7 +7,6 @@ from .models import FeedbackModel
 from rest_framework.response import Response
 from rest_framework import viewsets, status
 import random
-
 from .serializers import UserSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -108,9 +106,9 @@ def InitialSongRecommendations(request):
         if recommendedSongs == []:
             return Response(status=204)
 
-        recSongSerializer = SongModelSerializer(recommendedSongs, many=true)
+        recSongSerializer = SongModelSerializer(recommendedSongs, many=True)
 
         return Response(recSongSerializer.data, status=200)
-    return Response(songFeedbackSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(initialSongRecommendationsSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
