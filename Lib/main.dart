@@ -14,7 +14,6 @@ import 'Common/common.dart';
 
 void main() {
   final userRepository = UserRepository();
-  stdout.writeln("00000000000000000000000000000000000000000000000000000");
   runApp(
       BlocProvider<AuthenticationBloc>(
         create: (context) {
@@ -43,7 +42,11 @@ class App extends StatelessWidget {
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is AuthenticationUnintialized) {
-            return SplashPage();
+            return Scaffold(
+              body: Center(
+                child: Text('Splash Screen'),
+              ),
+            );
           }
           if (state is AuthenticationAuthenticated) {
             return const Home();
