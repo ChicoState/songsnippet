@@ -6,7 +6,8 @@ import '../Resources/dimen.dart';
 import 'API/Response_Objects/song_object.dart';
 import 'home_view_model.dart';
 import 'API/Response_Objects/song_list_object.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../bloc/authentication_bloc.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,6 +18,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late final MusicUtils _musicUtils;
+
   //Lazy initialized
   late HomeViewModel homeViewModel = HomeViewModel();
 
@@ -32,63 +34,71 @@ class _HomeState extends State<Home> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(SongSnippetStrings.title),
-      ),
-      body: FutureBuilder(
-        future: homeViewModel.songList,
-        builder: (BuildContext context, AsyncSnapshot<SongList> snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasError) {
-              return const Center( child: Text (SongSnippetStrings.error),);
+        appBar: AppBar(title: const Text(SongSnippetStrings.title), actions: [
+          ElevatedButton(
+            child: Text(
+              'Logout',
+              style: TextStyle(
+                fontSize: 12,
+              ),
+            ),
+            onPressed: () {
+              BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
+            },
+          ),
+        ]),
+        body: FutureBuilder(
+          future: homeViewModel.songList,
+          builder: (BuildContext context, AsyncSnapshot<SongList> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError) {
+                return const Center(
+                  child: Text(SongSnippetStrings.error),
+                );
+              } else {
+                return ListView.builder(
+                    itemCount: snapshot.data?.songList.length,
+                    itemBuilder: (context, position) {
+                      return createRow(
+                          context, position, snapshot.data?.songList[position]);
+                    });
+              }
             } else {
-              return ListView.builder(
-                itemCount: snapshot.data?.songList.length,
-                itemBuilder: (context, position) {
-                  return createRow(context, position, snapshot.data?.songList[position]);
-                });
-            }
-          } else {
-            return const Center(
-              child: SizedBox(
+              return const Center(
+                  child: SizedBox(
                 width: SongSnippetDimen.padding8x,
                 height: SongSnippetDimen.padding8x,
                 child: CircularProgressIndicator(),
-              )
-            );
-          }
-        },
-      )
-    );
+              ));
+            }
+          },
+        ));
   }
 
   Widget createRow(BuildContext context, int position, SongObject? song) {
     return GestureDetector(
-      onTap: () {
-        log('row $position');
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(SongSnippetDimen.paddingHalf),
-        child: Container(
-          padding: const EdgeInsets.all(SongSnippetDimen.padding),
-          decoration: BoxDecoration(
-            color: Theme
-              .of(context)
-              .primaryColor,
-            borderRadius: BorderRadius.circular(5.0),
+        onTap: () {
+          log('row $position');
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(SongSnippetDimen.paddingHalf),
+          child: Container(
+            padding: const EdgeInsets.all(SongSnippetDimen.padding),
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            child: TextButton(
+              onPressed: () async {
+                await _musicUtils.setUrl('${song?.songUrl}');
+                _musicUtils.play(song!.start, song.end);
+              },
+              child: Text('${song?.name}'),
+            ),
           ),
-          child: TextButton(
-            onPressed: () async {
-              await _musicUtils.setUrl('${song?.songUrl}');
-              _musicUtils.play(song!.start, song.end);
-            },
-            child: Text('${song?.name}'),
-          ),
-        ),
-      ));
+        ));
   }
 }

@@ -4,4 +4,5 @@ class SongSnippetURLs{
   static const songInitialRecURL = "${songSnippetURL}initialRec/";
   static const songFeedbackURL = "${songSnippetURL}songfeedback/";
 
+  static const songSnippetLogin = "${songSnippetURL}api-token-auth/";
 }
