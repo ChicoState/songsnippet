@@ -1,3 +1,4 @@
+import '../Model/api_model.dart';
 import '../Database/user_database.dart';
 import '../Login/API/Response/user_object.dart';
 
@@ -30,6 +31,22 @@ class UserDao {
       }
     } catch (error) {
       return false;
+    }
+  }
+
+
+  Future<Token?> getUserToken(int id) async {
+    final db = await dbProvider.database;
+    try {
+      List<Map> users = await db
+          .query(userTable, where: 'id = ?', whereArgs: [id]);
+      if (users.length > 0) {
+        return Token(token: "TOKEN "+users[0]['token']);
+      } else {
+        return null;
+      }
+    } catch (error) {
+      return null;
     }
   }
 }

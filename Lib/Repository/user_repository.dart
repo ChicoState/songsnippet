@@ -16,7 +16,7 @@ class UserRepository {
         username: username,
         password: password
     );
-    Token token = (await getToken(userLogin)) as Token;
+    Token token = (await getToken(userLogin));
     User user = User(
       id: 0,
       username: username,
@@ -41,5 +41,13 @@ class UserRepository {
   Future <bool> hasToken() async {
     bool result = await userDao.checkUser(0);
     return result;
+  }
+
+  Future <Token> getCachedToken() async {
+    Token? token = await userDao.getUserToken(0);
+    if (token != null) {
+      return token;
+    }
+    throw "Not logged in";
   }
 }
