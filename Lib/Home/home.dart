@@ -7,7 +7,7 @@ import 'API/Response_Objects/song_object.dart';
 import 'home_view_model.dart';
 import 'API/Response_Objects/song_list_object.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/authentication_bloc.dart';
+import '../Bloc_Login/bloc/authentication_bloc.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

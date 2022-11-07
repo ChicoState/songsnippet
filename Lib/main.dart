@@ -6,10 +6,10 @@ import 'Resources/theme.dart';
 import 'Home/home.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'Repository/user_repository.dart';
-import 'bloc/authentication_bloc.dart';
-import 'Login/login_page.dart';
-import 'Common/common.dart';
+import 'Bloc_Login/Repository/user_repository.dart';
+import 'Bloc_Login/bloc/authentication_bloc.dart';
+import 'Bloc_Login/login_page.dart';
+import 'Bloc_Login/Common/common.dart';
 
 void main() {
   final userRepository = UserRepository();
