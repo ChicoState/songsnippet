@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import '../Resources/dimen.dart';
 
 class FileFormField extends StatelessWidget {
   FileFormField({
@@ -30,11 +31,13 @@ class FileFormField extends StatelessWidget {
                   }
                 },
                 child: Container(
-                  margin: const EdgeInsets.all(8.0),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+                  margin: const EdgeInsets.all(SongSnippetDimen.padding),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: SongSnippetDimen.padding3x,
+                      vertical: SongSnippetDimen.padding),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius:
+                        BorderRadius.circular(SongSnippetDimen.padding),
                   ),
                   child: Column(
                     children: const [
@@ -46,7 +49,9 @@ class FileFormField extends StatelessWidget {
               ),
               if (formFieldState.hasError)
                 Padding(
-                  padding: const EdgeInsets.only(left: 8, top: 10),
+                  padding: const EdgeInsets.only(
+                      left: SongSnippetDimen.padding,
+                      top: SongSnippetDimen.padding2x),
                   child: Text(
                     formFieldState.errorText!,
                     style: const TextStyle(
