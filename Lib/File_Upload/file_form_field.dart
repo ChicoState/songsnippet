@@ -26,6 +26,7 @@ class FileFormField extends StatelessWidget {
                       .pickFiles(type: FileType.audio, allowMultiple: false);
                   if (file != null) {
                     _pickedFile = File(file.files.first.path!);
+                    onChanged.call(_pickedFile!);
                   }
                 },
                 child: Container(

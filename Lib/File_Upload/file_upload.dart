@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:song_snippet/File_Upload/file_form_field.dart';
 import 'form_utils.dart';
+import '../Utils/upload_utils.dart';
+import '../Utils/API_Utils/url_provider.dart';
 
 class UploadPage extends StatefulWidget {
-  const UploadPage({Key? key, required this.url}) : super(key: key);
-  final String url;
+  const UploadPage({super.key});
 
   @override
   _UploadPageState createState() => _UploadPageState();
@@ -35,9 +36,10 @@ class _UploadPageState extends State<UploadPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("upload test"),
+        title: const Text("upload Song"),
       ),
       body: SafeArea(
+        minimum: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Form(
           key: _formKey,
           child: ListView(
@@ -45,8 +47,8 @@ class _UploadPageState extends State<UploadPage> {
               TextFormField(
                 controller: songController,
                 validator: (value) {
-                  if (value!.isEmpty || value.isValidName) {
-                    return 'Please enter a valid song name';
+                  if (value!.isEmpty) {
+                    return 'Please enter a song name';
                   }
                   return null;
                 },
@@ -58,8 +60,8 @@ class _UploadPageState extends State<UploadPage> {
               TextFormField(
                 controller: artistController,
                 validator: (value) {
-                  if (value!.isEmpty || value.isValidName) {
-                    return 'Please enter a valid artist name';
+                  if (value!.isEmpty) {
+                    return 'Please enter an artist name';
                   }
                   return null;
                 },
@@ -107,17 +109,20 @@ class _UploadPageState extends State<UploadPage> {
                   hintText: 'End Time (in seconds)',
                 ),
               ),
-              FileFormField(validator: (val) {
-                if (val == null) return 'Pick a valid song';
-                return null;
-              }, onChanged: (item) {
-                file = item;
-              }),
-              FloatingActionButton(onPressed: () async {
-                if (_formKey.currentState!.validate()) {
+              FileFormField(
+                validator: (val) {
+                  if (val == null) return 'Pick a valid song';
+                },
+                onChanged: (item) {
+                  file = item;
+                },
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  // if (_formKey.currentState!.validate()) {
                   var res = await uploadSong(
                       file.path,
-                      widget.url,
+                      SongSnippetURLs.songListURL,
                       songController.text,
                       artistController.text,
                       yearController.text,
@@ -126,8 +131,10 @@ class _UploadPageState extends State<UploadPage> {
                   setState(() {
                     state = res;
                   });
-                }
-              })
+                  // }
+                },
+                child: const Text('Submit'),
+              )
             ],
           ),
         ),
