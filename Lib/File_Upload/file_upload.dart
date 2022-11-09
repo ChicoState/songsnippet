@@ -17,7 +17,6 @@ class _UploadPageState extends State<UploadPage> {
   late File file;
   final _formKey = GlobalKey<FormState>();
   final songController = TextEditingController();
-  final artistController = TextEditingController();
   final timeStartController = TextEditingController();
   final timeEndController = TextEditingController();
   final yearController = TextEditingController();
@@ -25,7 +24,6 @@ class _UploadPageState extends State<UploadPage> {
   @override
   void dispose() {
     songController.dispose();
-    artistController.dispose();
     timeStartController.dispose();
     timeEndController.dispose();
     yearController.dispose();
@@ -55,19 +53,6 @@ class _UploadPageState extends State<UploadPage> {
                 decoration: const InputDecoration(
                   labelText: 'Song Name',
                   hintText: 'Song Name',
-                ),
-              ),
-              TextFormField(
-                controller: artistController,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter an artist name';
-                  }
-                  return null;
-                },
-                decoration: const InputDecoration(
-                  labelText: 'Artist Name',
-                  hintText: 'Artist Name',
                 ),
               ),
               TextFormField(
@@ -119,12 +104,10 @@ class _UploadPageState extends State<UploadPage> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  // if (_formKey.currentState!.validate()) {
                   var res = await uploadSong(
                       file.path,
                       SongSnippetURLs.songListURL,
                       songController.text,
-                      artistController.text,
                       yearController.text,
                       timeStartController.text,
                       timeEndController.text);
