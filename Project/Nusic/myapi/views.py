@@ -8,8 +8,8 @@ from .models import FeedbackModel
 from rest_framework.response import Response
 from rest_framework import viewsets, status
 import random
-
 from .serializers import UserSerializer
+from .serializers import SongUploadSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -98,6 +98,24 @@ def SongFeedback(request):
 
         return Response(recSongSerializer.data, status=status.HTTP_201_CREATED)
     return Response(songFeedbackSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def SongUpload(request):
+    songUploadSerializer = SongUploadSerializer(data=request)
+    if songUploadSerializer.is_valid():
+        newSong = SongModel(
+            songName=songUploadSerializer.songName,
+            artist=request.user,
+            year=songUploadSerializer.year,
+            start=songUploadSerializer.start,
+            end=songUploadSerializer.end,
+            song=songUploadSerializer.song
+        )
+        newSong.save()
+        return Response(status=status.HTTP_201_CREATED)
+    return Response(songUploadSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 @api_view(['POST'])
 #   {"count": 1}
