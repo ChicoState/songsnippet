@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:song_snippet/File_Upload/file_form_field.dart';
 import 'form_utils.dart';
-import '../Utils/upload_utils.dart';
+import 'Utils/upload_utils.dart';
 import '../Utils/API_Utils/url_provider.dart';
 
 class UploadPage extends StatefulWidget {
@@ -104,17 +104,20 @@ class _UploadPageState extends State<UploadPage> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  var res = await uploadSong(
-                      file.path,
-                      SongSnippetURLs.songListURL,
-                      songController.text,
-                      yearController.text,
-                      timeStartController.text,
-                      timeEndController.text);
-                  setState(() {
-                    state = res;
-                  });
-                  // }
+                  try {
+                    var res = await uploadSong(
+                        file.path,
+                        SongSnippetURLs.songUpload,
+                        songController.text,
+                        yearController.text,
+                        timeStartController.text,
+                        timeEndController.text);
+                    setState(() {
+                      state = res;
+                    });
+                  } catch (e) {
+                    print(e);
+                  }
                 },
                 child: const Text('Submit'),
               )
