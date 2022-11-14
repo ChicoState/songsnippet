@@ -8,6 +8,7 @@ Future<String> uploadSong(
   request.files.add(await http.MultipartFile.fromPath('song', filename));
   request.headers['authorization'] =
       'TOKEN b03cdb0207d3769420b392838c980d23e431877e';
+  request.fields['songName'] = songName;
   request.fields['start'] = startTime;
   request.fields['end'] = endTime;
   request.fields['song'] = songName;
