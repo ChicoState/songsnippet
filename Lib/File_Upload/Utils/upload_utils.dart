@@ -11,11 +11,10 @@ Future<String> uploadSong(
   request.fields['songName'] = songName;
   request.fields['start'] = startTime;
   request.fields['end'] = endTime;
-  request.fields['song'] = songName;
   request.fields['year'] = year;
   var result = await request.send();
   if (result.statusCode == 201) {
-    return result.reasonPhrase!;
+    return "Success";
   } else {
     throw Exception("Error uploading file, status code: ${result.statusCode}");
   }
