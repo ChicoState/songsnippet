@@ -14,6 +14,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('songfeedback/', views.SongFeedback),
-    path('initialRec/', views.InitialSongRecommendations),
-    path('user/', UserRecordView.as_view(), name='users')
+    path('initialrec/', views.InitialSongRecommendations),
+    path('user/', UserRecordView.as_view(), name='users'),
+    path('songupload/', views.SongUpload)
 ]

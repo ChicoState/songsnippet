@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import SongModel
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueTogetherValidator
+from .models import FeedbackModel
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -25,9 +26,6 @@ class UserSerializer(serializers.ModelSerializer):
                 fields=['username', 'email']
             )
         ]
-from .models import FeedbackModel
-
-
 
 class SongModelSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -41,3 +39,12 @@ class SongFeedbackSerializer(serializers.HyperlinkedModelSerializer):
 
 class InitialSongRecommendationsSerializer(serializers.Serializer):
     count = serializers.IntegerField()
+
+class SongUploadSerializer(serializers.Serializer):
+    songName = serializers.CharField(max_length=None, min_length=None, allow_blank=False,
+                                     trim_whitespace=True)
+    year = serializers.IntegerField()
+    start = serializers.IntegerField()
+    end = serializers.IntegerField()
+    song = serializers.FileField()
+
