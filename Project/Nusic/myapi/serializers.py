@@ -28,6 +28,7 @@ class UserSerializer(serializers.ModelSerializer):
         ]
 
 class SongModelSerializer(serializers.HyperlinkedModelSerializer):
+    id = serializers.IntegerField(read_only=True)
     class Meta:
         model = SongModel
         fields = ('songName', 'year', 'artist', 'start', 'end', 'song')
