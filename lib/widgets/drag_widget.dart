@@ -1,18 +1,18 @@
-import 'package:song_snippet/model/profile.dart';
-import 'package:song_snippet/widgets/profile_card.dart';
-import 'package:song_snippet/widgets/tag_widget.dart';
+import '../Home/API/Response_Objects/song_object.dart';
+import 'tag_widget.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
+import 'profile_card.dart';
 
 class DragWidget extends StatefulWidget {
   const DragWidget({
     Key? key,
-    required this.profile,
+    required this.song,
     required this.index,
     required this.swipeNotifier,
     this.isLastCard = false,
   }) : super(key: key);
-  final Profile profile;
+  final SongObject song;
   final int index;
   final ValueNotifier<Swipe> swipeNotifier;
   final bool isLastCard;
@@ -26,7 +26,6 @@ class _DragWidgetState extends State<DragWidget> {
   Widget build(BuildContext context) {
     return Center(
       child: Draggable<int>(
-        // Data is the value this Draggable stores.
         data: widget.index,
         feedback: Material(
           color: Colors.transparent,
@@ -41,7 +40,7 @@ class _DragWidgetState extends State<DragWidget> {
                     : const AlwaysStoppedAnimation(0),
                 child: Stack(
                   children: [
-                    ProfileCard(profile: widget.profile),
+                    ProfileCard(song: widget.song),
                     widget.swipeNotifier.value != Swipe.none
                         ? widget.swipeNotifier.value == Swipe.right
                         ? Positioned(
@@ -99,7 +98,7 @@ class _DragWidgetState extends State<DragWidget> {
             builder: (BuildContext context, Swipe swipe, Widget? child) {
               return Stack(
                 children: [
-                  ProfileCard(profile: widget.profile),
+                  ProfileCard(song: widget.song),
                   // heck if this is the last card and Swipe is not equal to Swipe.none
                   swipe != Swipe.none && widget.isLastCard
                       ? swipe == Swipe.right
