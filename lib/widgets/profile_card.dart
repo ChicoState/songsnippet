@@ -1,9 +1,10 @@
-import 'package:song_snippet/model/profile.dart';
 import 'package:flutter/material.dart';
+import '../Home/API/Response_Objects/song_object.dart';
+
 
 class ProfileCard extends StatelessWidget {
-  const ProfileCard({Key? key, required this.profile}) : super(key: key);
-  final Profile profile;
+  const ProfileCard({Key? key, required this.song}) : super(key: key);
+  final SongObject song;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class ProfileCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.asset(
-                profile.imageAsset,
+                'assets/images/gen-art.png',
                 fit: BoxFit.fitHeight,
               ),
             ),
@@ -46,7 +47,7 @@ class ProfileCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      profile.songName,
+                      song.name,
                       style: const TextStyle(
                         // Custom Font
                         fontWeight: FontWeight.w800,
@@ -54,7 +55,7 @@ class ProfileCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      profile.artist,
+                      song.artist,
                       style: const TextStyle(
                         // Custom Font
                         fontWeight: FontWeight.w400,
