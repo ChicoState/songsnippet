@@ -71,7 +71,7 @@ class _UploadPageState extends State<UploadPage> {
               TextFormField(
                 controller: timeStartController,
                 validator: (value) {
-                  if (value!.isEmpty || value.isValidTime) {
+                  if (value!.isEmpty || isNumber(value)) {
                     return 'Please enter a valid start time';
                   }
                   return null;
@@ -84,7 +84,7 @@ class _UploadPageState extends State<UploadPage> {
               TextFormField(
                 controller: timeEndController,
                 validator: (value) {
-                  if (value!.isEmpty || value.isValidTime) {
+                  if (value!.isEmpty || isNumber(value)) {
                     return 'Please enter a valid end time';
                   }
                   return null;

@@ -13,7 +13,7 @@ Future<String> uploadSong(
   request.fields['end'] = endTime;
   request.fields['year'] = year;
   var result = await request.send();
-  if (result.statusCode == 201) {
+  if (result.statusCode == 201 || result.statusCode == 200) {
     return "Success";
   } else {
     throw Exception("Error uploading file, status code: ${result.statusCode}");
