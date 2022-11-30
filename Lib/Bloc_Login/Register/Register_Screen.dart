@@ -1,0 +1,31 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../Repository/user_repository.dart';
+import '../Register/bloc/register_bloc.dart';
+import '../Register/register_form.dart';
+
+class RegisterScreen extends StatelessWidget {
+  final UserRepository _userRepository;
+
+  RegisterScreen({required Key key, required UserRepository userRepository})
+      : assert(userRepository != null),
+        _userRepository = userRepository,
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Register'),
+        backgroundColor: Colors.orange,
+      ),
+      body: Center(
+        child: BlocProvider<RegisterBloc>(
+          create: (context) => RegisterBloc(userRepository: _userRepository),
+          child: RegisterForm(),
+        ),
+      ),
+    );
+  }
+}
