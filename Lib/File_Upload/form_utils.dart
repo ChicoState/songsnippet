@@ -6,5 +6,5 @@
 // }
 
 bool isNumber(String s) {
-  return double.tryParse(s) != null;
+  return int.tryParse(s) != null && (int.tryParse(s)! >= 0);
 }

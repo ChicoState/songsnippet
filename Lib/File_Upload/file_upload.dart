@@ -72,7 +72,7 @@ class _UploadPageState extends State<UploadPage> {
                 controller: timeStartController,
                 validator: (value) {
                   if (value!.isEmpty || isNumber(value)) {
-                    return 'Please enter a valid start time';
+                    return 'Please enter a whole number value';
                   }
                   return null;
                 },
@@ -85,7 +85,7 @@ class _UploadPageState extends State<UploadPage> {
                 controller: timeEndController,
                 validator: (value) {
                   if (value!.isEmpty || isNumber(value)) {
-                    return 'Please enter a valid end time';
+                    return 'Please enter a whole number value';
                   }
                   return null;
                 },

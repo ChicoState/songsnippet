@@ -43,8 +43,8 @@ class InitialSongRecommendationsSerializer(serializers.Serializer):
 class SongUploadSerializer(serializers.Serializer):
     songName = serializers.CharField(max_length=None, min_length=None, allow_blank=False,
                                      trim_whitespace=True)
-    year = serializers.IntegerField()
-    start = serializers.IntegerField()
-    end = serializers.IntegerField()
+    year = serializers.CharField(max_length=None, allow_blank=False, trim_whitespace=True)
+    start = serializers.CharField(max_length=None, allow_blank=False, trim_whitespace=True)
+    end = serializers.CharField(max_length=None, allow_blank=False, trim_whitespace=True)
     song = serializers.FileField()
 

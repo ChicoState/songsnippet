@@ -106,9 +106,9 @@ def SongUpload(request):
         newSong = SongModel(
             songName=songUploadSerializer.songName,
             artist=request.user,
-            year=songUploadSerializer.year,
-            start=songUploadSerializer.start,
-            end=songUploadSerializer.end,
+            year=int(songUploadSerializer.year),
+            start=int(songUploadSerializer.start),
+            end=int(songUploadSerializer.end),
             song=songUploadSerializer.song
         )
         newSong.save()
