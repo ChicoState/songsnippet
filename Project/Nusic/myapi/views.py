@@ -112,7 +112,6 @@ def SongUpload(request):
             song=songUploadSerializer.data['song']
         )
         newSong.save()
-        print(songUploadSerializer.data['song'])
         return Response(status=status.HTTP_201_CREATED)
     return Response(songUploadSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

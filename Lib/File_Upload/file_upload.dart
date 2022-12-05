@@ -34,7 +34,7 @@ class _UploadPageState extends State<UploadPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("upload Song"),
+        title: const Text("Upload Song"),
       ),
       body: SafeArea(
         minimum: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -107,7 +107,7 @@ class _UploadPageState extends State<UploadPage> {
                   try {
                     var res = await uploadSong(
                         file.path,
-                        "http://10.0.2.2:8000/songupload/",
+                        SongSnippetURLs.songUpload,
                         songController.text,
                         yearController.text,
                         timeStartController.text,
