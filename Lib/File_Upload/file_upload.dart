@@ -4,6 +4,7 @@ import 'package:song_snippet/File_Upload/file_form_field.dart';
 import 'form_utils.dart';
 import 'Utils/upload_utils.dart';
 import '../Utils/API_Utils/url_provider.dart';
+import '../Resources/dimen.dart';
 
 class UploadPage extends StatefulWidget {
   const UploadPage({super.key});
@@ -37,7 +38,8 @@ class _UploadPageState extends State<UploadPage> {
         title: const Text("Upload Song"),
       ),
       body: SafeArea(
-        minimum: const EdgeInsets.symmetric(horizontal: 8.0),
+        minimum:
+            const EdgeInsets.symmetric(horizontal: SongSnippetDimen.padding),
         child: Form(
           key: _formKey,
           child: ListView(
