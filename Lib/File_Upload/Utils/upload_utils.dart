@@ -6,12 +6,19 @@ Future<String> uploadSong(
     filename, url, songName, year, startTime, endTime) async {
   var request = http.MultipartRequest('POST', Uri.parse(url));
   request.files.add(await http.MultipartFile.fromPath('song', filename));
-  request.headers['authorization'] =
-      'TOKEN b03cdb0207d3769420b392838c980d23e431877e';
-  request.fields['songName'] = songName;
-  request.fields['start'] = startTime;
-  request.fields['end'] = endTime;
-  request.fields['year'] = year;
+  print(filename);
+  print(request.files.first.length);
+  request.headers.addAll({
+    'Content-Type': 'multipart/form-data',
+    'Authorization': 'TOKEN b03cdb0207d3769420b392838c980d23e431877e'
+  });
+  Map<String, String> fields = {
+    'songName': songName,
+    'start': startTime,
+    'end': endTime,
+    'year': year
+  };
+  request.fields.addAll(fields);
   var result = await request.send();
   if (result.statusCode == 201 || result.statusCode == 200) {
     return "Success";

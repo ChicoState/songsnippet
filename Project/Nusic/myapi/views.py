@@ -101,17 +101,18 @@ def SongFeedback(request):
 
 @api_view(['POST'])
 def SongUpload(request):
-    songUploadSerializer = SongUploadSerializer(data=request)
+    songUploadSerializer = SongUploadSerializer(data=request.data)
     if songUploadSerializer.is_valid():
         newSong = SongModel(
-            songName=songUploadSerializer.songName,
+            songName=songUploadSerializer.data['songName'],
             artist=request.user,
-            year=int(songUploadSerializer.year),
-            start=int(songUploadSerializer.start),
-            end=int(songUploadSerializer.end),
-            song=songUploadSerializer.song
+            year=int(songUploadSerializer.data['year']),
+            start=int(songUploadSerializer.data['start']),
+            end=int(songUploadSerializer.data['end']),
+            song=songUploadSerializer.data['song']
         )
         newSong.save()
+        print(songUploadSerializer.data['song'])
         return Response(status=status.HTTP_201_CREATED)
     return Response(songUploadSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

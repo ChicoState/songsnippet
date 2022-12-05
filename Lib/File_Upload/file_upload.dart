@@ -107,7 +107,7 @@ class _UploadPageState extends State<UploadPage> {
                   try {
                     var res = await uploadSong(
                         file.path,
-                        SongSnippetURLs.songUpload,
+                        "http://10.0.2.2:8000/songupload/",
                         songController.text,
                         yearController.text,
                         timeStartController.text,
