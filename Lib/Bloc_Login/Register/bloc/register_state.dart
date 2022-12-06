@@ -2,14 +2,14 @@ part of 'register_bloc.dart';
 
 @immutable
 class RegisterState {
-  final bool isUsernameValid;
-  final bool isEmailValid;
-  final bool isPasswordValid;
+  bool? isUsernameValid;
+  bool? isEmailValid;
+  bool? isPasswordValid;
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
 
-  bool get isFormValid => isEmailValid && isPasswordValid;
+  // bool get isFormValid => isEmailValid && isPasswordValid;
 
   RegisterState({
     required this.isUsernameValid,
@@ -65,9 +65,9 @@ class RegisterState {
   }
 
   RegisterState update({
-    required bool isUsernameValid,
-    required bool isEmailValid,
-    required bool isPasswordValid,
+    bool? isUsernameValid,
+    bool? isEmailValid,
+    bool? isPasswordValid,
   }) {
     return copyWith(
       isUsernameValid: isUsernameValid,
@@ -81,9 +81,9 @@ class RegisterState {
   }
 
   RegisterState copyWith({
-    required bool isUsernameValid,
-    required bool isEmailValid,
-    required bool isPasswordValid,
+    bool? isUsernameValid,
+    bool? isEmailValid,
+    bool? isPasswordValid,
     required bool isSubmitEnabled,
     required bool isSubmitting,
     required bool isSuccess,

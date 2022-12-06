@@ -28,13 +28,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   ) {
     final nonDebounceStream = events.where((event) {
       return (event is! EmailChanged &&
-          event is! PasswordChanged &&
-          event is ! PinCodeChanged);
+          event is! PasswordChanged);
     });
     final debounceStream = events.where((event) {
       return (event is EmailChanged ||
-          event is PasswordChanged ||
-          event is PinCodeChanged);
+          event is PasswordChanged);
     }).debounceTime(Duration(milliseconds: 300));
     return super.transformEvents(
       nonDebounceStream.mergeWith([debounceStream]),
@@ -86,6 +84,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       );
       yield RegisterState.success();
     } catch (error) {
+      print("ERROR");
+      print(error);
       yield RegisterState.failure();
     }
   }

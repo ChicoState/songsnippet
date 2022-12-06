@@ -8,7 +8,7 @@ import '../Model/api_model.dart';
 class UserRepository {
   final userDao = UserDao();
 
-  Future<User> authenticate ({
+  Future<User> authenticate({
     required String username,
     required String password,
   }) async {
@@ -25,7 +25,7 @@ class UserRepository {
     return user;
   }
 
-  Future<void> persistToken ({
+  Future<void> persistToken({
     required User user
   }) async {
     // write token with the user to the database
@@ -49,5 +49,33 @@ class UserRepository {
       return token;
     }
     throw "Not logged in";
+  }
+
+  Future <void> signUp({
+    required String userName,
+    required String email,
+    required String password,
+  }) async {
+    UserDetails userDetails = UserDetails(
+        username: userName,
+        email: email,
+        password: password
+    );
+
+    UserSignup userSignup = UserSignup(
+      user: userDetails,
+    );
+
+    UserLogin registeredUser = await registerUser(userSignup);
+    print("___________________");
+    Token registeredUserToken = await getToken(registeredUser);
+
+
+    User user = User(
+      id: 0,
+      username: userName,
+      token: registeredUserToken.token,
+    );
+    await userDao.createUser(user);
   }
 }

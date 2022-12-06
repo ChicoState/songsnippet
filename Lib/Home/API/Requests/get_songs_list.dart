@@ -11,7 +11,6 @@ import '../../../Bloc_Login/Repository/user_repository.dart';
 Future<SongList> getSongList() async {
   final userRepository = UserRepository();
   Token token = await userRepository.getCachedToken();
-  print(token);
   final response = await http.get(
     Uri.parse(SongSnippetURLs.songListURL),
     headers: <String, String>{
