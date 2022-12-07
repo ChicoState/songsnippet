@@ -17,4 +17,4 @@ class SongModel(models.Model):
 class FeedbackModel(models.Model):
     creator = models.ForeignKey(User, related_name='feedback', on_delete=models.CASCADE)
     song = models.ForeignKey(SongModel, on_delete=models.CASCADE)
-    like = models.BooleanField()
+    like = models.BooleanField(null=True, blank=True)
