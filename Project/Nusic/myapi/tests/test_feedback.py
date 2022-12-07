@@ -51,7 +51,7 @@ class FeedbackTestCase(TestCase):
         self.assertEqual(response.status_code, 204)
 
 
-    def test_song_feedback_response_fail(self):
+    def test_song_feedback_response_serialization_fail(self):
         creator = testingUtils.create_user()
         testingUtils.create_songs(4, creator)
         song = SongModel.objects.get(songName="TEST")
