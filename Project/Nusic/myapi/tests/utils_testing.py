@@ -6,6 +6,7 @@ from rest_framework.request import Request
 from ..models import SongModel, FeedbackModel
 from ..serializers import SongUploadSerializer
 from ..views import SongUploadHelper
+import time
 
 
 class TestingUtils:
@@ -21,6 +22,7 @@ class TestingUtils:
         owner = User.objects.create_user(username='testingUser',
                                          email='test.com',
                                          password='another test')
+        time.sleep(1)
         owner.save()
         return owner
 
@@ -28,13 +30,14 @@ class TestingUtils:
         songName = "TEST"
         for i in range(count):
             test_json = {'songName': songName,
-                         'year': 2010,
-                         'start': 1,
-                         'end': 2,
+                         'year': '2010',
+                         'start': '1',
+                         'end': '2',
                          'song': SimpleUploadedFile("file.mp4",
                                                     b"file_content",
                                                     content_type="video/mp4")}
             songUploadSerializer = SongUploadSerializer(data=test_json)
+            time.sleep(1)
             SongUploadHelper(songUploadSerializer, owner)
             songName = songName + "s"
 
