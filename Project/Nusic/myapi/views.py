@@ -104,7 +104,7 @@ def SongFeedbackHelper(songFeedbackSerializer, owner):
 
 @api_view(['POST'])
 def SongFeedback(request):
-    return SongUploadHelper(SongFeedbackSerializer(data=request.data), request.user)
+    return SongFeedbackHelper(SongFeedbackSerializer(data=request.data), request.user)
 
 
 # seperate function for testing purposes
