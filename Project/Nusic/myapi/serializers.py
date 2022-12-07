@@ -27,18 +27,22 @@ class UserSerializer(serializers.ModelSerializer):
             )
         ]
 
+
 class SongModelSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = SongModel
         fields = ('songName', 'year', 'artist', 'start', 'end', 'song')
 
-class SongFeedbackSerializer(serializers.HyperlinkedModelSerializer):
+
+class SongFeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = FeedbackModel
-        fields = ('creator', 'song', 'like')
+        fields = ('song', 'like')
+
 
 class InitialSongRecommendationsSerializer(serializers.Serializer):
     count = serializers.IntegerField()
+
 
 class SongUploadSerializer(serializers.Serializer):
     songName = serializers.CharField(max_length=None, min_length=None, allow_blank=False,
@@ -47,4 +51,3 @@ class SongUploadSerializer(serializers.Serializer):
     start = serializers.IntegerField()
     end = serializers.IntegerField()
     song = serializers.FileField()
-

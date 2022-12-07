@@ -13,6 +13,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAdminUser
 from django.contrib.auth.models import User
+from django.forms.models import model_to_dict
+from rest_framework.request import Request
 
 
 class UserRecordView(APIView):
@@ -58,23 +60,23 @@ class UserViewSet(viewsets.ModelViewSet):
 # not sure if this works until we test
 def RecommendSong(user, count):
     excluded_song_ids = FeedbackModel.objects.filter(creator=user.id).values('song')
-    possible_songs = SongModel.objects.exclude(id__in=excluded_song_ids)
+    possible_songs = SongModel.objects.exclude(id__in=excluded_song_ids)[::1]
     random.shuffle(possible_songs)
     if len(possible_songs) == 0:
         return []
     if count > len(possible_songs):
         count = len(possible_songs)
+
+    for i in range(count):
+        dontRecAgain = FeedbackModel(creator=user, song=possible_songs[i])
+        dontRecAgain.save()
     return possible_songs[0:count]
 
 
-@api_view(['POST'])
-def SongFeedback(request):
-    songFeedbackSerializer = SongFeedbackSerializer(data=request.data)
-
+def SongFeedbackHelper(songFeedbackSerializer, owner):
     if songFeedbackSerializer.is_valid():
-
-        prevLikeObject = SongFeedback.objects.filter(
-            creator=request.user,
+        prevLikeObject = FeedbackModel.objects.filter(
+            creator=owner,
             song=songFeedbackSerializer.data['song']
         ).first()
 
@@ -82,34 +84,39 @@ def SongFeedback(request):
         if prevLikeObject is not None:
             prevLikeObject.delete()
 
-        SongFeedback.create(
-            creator=request.user,
-            song=request.data['song'],
-            like=request.data['like']
+        feedback = FeedbackModel(
+            creator=owner,
+            song=SongModel.objects.get(id=songFeedbackSerializer.data['song']),
+            like=songFeedbackSerializer.data['like']
         )
+        feedback.save()
 
-        recommendedSong = RecommendSong(request.user, 1)
+        recommendedSong = RecommendSong(owner, 1)
 
-        if recommendedSong == []:
+        if not recommendedSong:
             return Response(status=204)
 
-        recSongSerializer = SongModelSerializer(recommendedSong[0])
+        rec = model_to_dict(recommendedSong[0])
 
-        return Response(recSongSerializer.data, status=status.HTTP_201_CREATED)
+        return Response(rec, status=status.HTTP_201_CREATED)
     return Response(songFeedbackSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
-def SongUpload(request):
-    songUploadSerializer = SongUploadSerializer(data=request)
+def SongFeedback(request):
+    return SongUploadHelper(SongFeedbackSerializer(data=request.data), request.user)
+
+
+# seperate function for testing purposes
+def SongUploadHelper(songUploadSerializer, owner):
     if songUploadSerializer.is_valid():
         newSong = SongModel(
-            songName=songUploadSerializer.songName,
-            artist=request.user,
-            year=songUploadSerializer.year,
-            start=songUploadSerializer.start,
-            end=songUploadSerializer.end,
-            song=songUploadSerializer.song
+            songName=songUploadSerializer.data['songName'],
+            artist=owner,
+            year=songUploadSerializer.data['year'],
+            start=songUploadSerializer.data['start'],
+            end=songUploadSerializer.data['end'],
+            song=songUploadSerializer.data['song']
         )
         newSong.save()
         return Response(status=status.HTTP_201_CREATED)
@@ -117,16 +124,26 @@ def SongUpload(request):
 
 
 @api_view(['POST'])
-#   {"count": 1}
-def InitialSongRecommendations(request):
-    initialSongRecommendationsSerializer = InitialSongRecommendationsSerializer(data=request.data)
+def SongUpload(request):
+    return SongUploadHelper(songUploadSerializer=SongUploadSerializer(data=request),
+                            owner=request.user)
+
+
+def InitialSongRecommendationsHelper(initialSongRecommendationsSerializer, owner, context):
     if initialSongRecommendationsSerializer.is_valid():
-        recommendedSongs = RecommendSong(request.user,
+        recommendedSongs = RecommendSong(owner,
                                          initialSongRecommendationsSerializer.data["count"])
         if recommendedSongs == []:
             return Response(status=204)
 
-        recSongSerializer = SongModelSerializer(recommendedSongs, many=True)
-
+        recSongSerializer = SongModelSerializer(recommendedSongs, many=True, context=context)
         return Response(recSongSerializer.data, status=200)
     return Response(initialSongRecommendationsSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+#   {"count": 1}
+def InitialSongRecommendations(request):
+    initialSongRecommendationsSerializer = InitialSongRecommendationsSerializer(data=request.data)
+    return InitialSongRecommendationsHelper(initialSongRecommendationsSerializer, request.user,
+                                            {"request": Request(request)})
