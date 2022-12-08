@@ -113,9 +113,9 @@ def SongUploadHelper(songUploadSerializer, owner):
         newSong = SongModel(
             songName=songUploadSerializer.data['songName'],
             artist=owner,
-            year=songUploadSerializer.data['year'],
-            start=songUploadSerializer.data['start'],
-            end=songUploadSerializer.data['end'],
+            year=int(songUploadSerializer.data['year']),
+            start=int(songUploadSerializer.data['start']),
+            end=int(songUploadSerializer.data['end']),
             song=songUploadSerializer.data['song']
         )
         newSong.save()
