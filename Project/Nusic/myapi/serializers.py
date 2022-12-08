@@ -3,7 +3,7 @@ from .models import SongModel
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueTogetherValidator
 from .models import FeedbackModel
-
+from django import forms
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -44,10 +44,9 @@ class InitialSongRecommendationsSerializer(serializers.Serializer):
     count = serializers.IntegerField()
 
 
-class SongUploadSerializer(serializers.Serializer):
-    songName = serializers.CharField(max_length=None, min_length=None, allow_blank=False,
-                                     trim_whitespace=True)
-    year = serializers.IntegerField()
-    start = serializers.IntegerField()
-    end = serializers.IntegerField()
-    song = serializers.FileField()
+class SongUploadSerializer(forms.Form):
+    songName = forms.CharField(required=True)
+    year = forms.CharField(required=True)
+    start = forms.CharField(required=True)
+    end = forms.CharField(required=True)
+    song = forms.FileField(required=False)

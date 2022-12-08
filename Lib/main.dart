@@ -12,26 +12,25 @@ enum Swipe { left, right, none }
 
 void main() {
   final userRepository = UserRepository();
-  runApp(
-      BlocProvider<AuthenticationBloc>(
-        create: (context) {
-          return AuthenticationBloc(
-              userRepository: userRepository
-          )..add(AppStarted());
-        },
-        child: App(userRepository: userRepository, key: null,),
-      )
-  );
+  runApp(BlocProvider<AuthenticationBloc>(
+    create: (context) {
+      return AuthenticationBloc(userRepository: userRepository)
+        ..add(AppStarted());
+    },
+    child: App(
+      userRepository: userRepository,
+      key: null,
+    ),
+  ));
 }
 
 class App extends StatelessWidget {
   final UserRepository userRepository;
 
-  const App({Key? key, required this.userRepository})
-      : super(key: key);
+  const App({Key? key, required this.userRepository}) : super(key: key);
 
   @override
-  Widget build (BuildContext context) {
+  Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.green,

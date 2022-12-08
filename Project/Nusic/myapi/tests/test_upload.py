@@ -5,9 +5,9 @@ from ..serializers import SongUploadSerializer
 from ..views import SongUploadHelper
 
 test_json = {'songName': 'TEST',
-             'year': 2010,
-             'start': 1,
-             'end': 2,
+             'year': '201',
+             'start': '1',
+             'end': '2',
              'song': SimpleUploadedFile("file.mp4",
                                         b"file_content",
                                         content_type="video/mp4")}
