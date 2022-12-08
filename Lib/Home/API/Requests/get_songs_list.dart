@@ -1,16 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import '../../../resources/strings.dart';
 import '../Response_Objects/song_list_object.dart';
 import '../../../Utils/API_Utils/url_provider.dart';
 import '../../../Utils/API_Utils/http_header_strings.dart';
+import '../Response_Objects/song_object.dart';
 
 Future<SongList> getSongList() async {
   final response = await http.get(
     Uri.parse(SongSnippetURLs.songListURL),
     headers: <String, String>{
       HTTPHeaderStrings.contentType: HTTPHeaderStrings.applicationEncoding,
-      HttpHeaders.authorizationHeader: 'TOKEN b03cdb0207d3769420b392838c980d23e431877e'
+      HttpHeaders.authorizationHeader: HTTPHeaderStrings.hardCodedToken
     },
   );
   if (response.statusCode == 200) {
@@ -21,27 +23,24 @@ Future<SongList> getSongList() async {
   }
 }
 
-Future<SongList> getInitialSongRecommendations(int count) async {
-  const String keyCount = 'count';
-  final response = await http.post(
-    Uri.parse(SongSnippetURLs.songListURL),
+Future<SongObject> getInitialSongRecommendations() async {
+  final response = await http.get(
+    Uri.parse(SongSnippetURLs.songInitialRecURL),
     headers: <String, String>{
       HTTPHeaderStrings.contentType: HTTPHeaderStrings.applicationEncoding,
-      HttpHeaders.authorizationHeader: 'TOKEN b03cdb0207d3769420b392838c980d23e431877e'
+      HttpHeaders.authorizationHeader: HTTPHeaderStrings.hardCodedToken
     },
-    body: jsonEncode(<String, int>{
-      keyCount: count,
-    }),
   );
+  print(response.body);
   if (response.statusCode == 200) {
-    return SongList.fromJson(jsonDecode(response.body));
+    return SongObject.fromJson(jsonDecode(response.body));
   } else if (response.statusCode == 204) {
     throw Exception(
-      "No more songs to recommend"
+        SongSnippetStrings.noSongException
     );
   } else {
     throw Exception(
-        "Failed to get list of songs, status code = ${response.statusCode}"
+        "Failed to get song, status code = ${response.statusCode}"
     );
   }
 }

@@ -1,8 +1,12 @@
-import 'package:song_snippet/main.dart';
-import 'package:song_snippet/model/profile.dart';
-import 'package:song_snippet/widgets/action_button_widget.dart';
-import 'package:song_snippet/widgets/drag_widget.dart';
 import 'package:flutter/material.dart';
+import '../Home/API/Requests/get_songs_list.dart';
+import '../Home/API/Requests/post_song_feedback.dart';
+import '../Home/API/Response_Objects/song_list_object.dart';
+import '../resources/strings.dart';
+import 'drag_widget.dart';
+import '../Home/API/Response_Objects/song_object.dart';
+import 'action_button_widget.dart';
+import '../main.dart';
 
 class CardsStackWidget extends StatefulWidget {
   const CardsStackWidget({Key? key}) : super(key: key);
@@ -13,47 +17,39 @@ class CardsStackWidget extends StatefulWidget {
 
 class _CardsStackWidgetState extends State<CardsStackWidget>
     with SingleTickerProviderStateMixin {
-  List<Profile> draggableItems = [
-    const Profile(
-        songName: 'Gucci Gang',
-        artist: 'Lil Pump',
-        imageAsset: 'assets/images/gen_art.png'),
-    const Profile(
-        songName: 'Gucci Gang',
-        artist: 'Lil Pump',
-        imageAsset: 'assets/images/gen_art.png'),
-    const Profile(
-        songName: 'Gucci Gang',
-        artist: 'Lil Pump',
-        imageAsset: 'assets/images/gen_art.png'),
-
-    const Profile(
-        songName: 'Gucci Gang',
-        artist: 'Lil Pump',
-        imageAsset: 'assets/images/gen_art.png'),
-
-    const Profile(
-        songName: 'Gucci Gang',
-        artist: 'Lil Pump',
-        imageAsset: 'assets/images/gen_art.png'),
-  ];
+  late List<Future<SongObject>> draggableItems = [];
 
   ValueNotifier<Swipe> swipeNotifier = ValueNotifier(Swipe.none);
+  ValueNotifier<int> idNotifier = ValueNotifier(-1);
   late final AnimationController _animationController;
+
+  void getInitialRecs(int count) {
+    for(int i = 0; i < count; i++) {
+      try {
+        Future<SongObject> rec = getInitialSongRecommendations();
+        draggableItems.insert(0, rec);
+      } catch (e){
+        break;
+      }
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    getInitialRecs(5);
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
     );
-    _animationController.addStatusListener((status) {
+    _animationController.addStatusListener((status)  {
       if (status == AnimationStatus.completed) {
         draggableItems.removeLast();
         _animationController.reset();
-
+        bool like = swipeNotifier.value == Swipe.right ? true : false;
         swipeNotifier.value = Swipe.none;
+        Future<SongObject> newRec = postSongFeedback(idNotifier.value , like);
+        draggableItems.insert(0, newRec);
       }
     });
   }
@@ -81,8 +77,8 @@ class _CardsStackWidgetState extends State<CardsStackWidget>
                           Rect.fromLTWH(
                               swipe != Swipe.none
                                   ? swipe == Swipe.left
-                                  ? -300
-                                  : 300
+                                      ? -300
+                                      : 300
                                   : 0,
                               0,
                               580,
@@ -94,32 +90,34 @@ class _CardsStackWidgetState extends State<CardsStackWidget>
                     )),
                     child: RotationTransition(
                       turns: Tween<double>(
-                          begin: 0,
-                          end: swipe != Swipe.none
-                              ? swipe == Swipe.left
-                              ? -0.1 * 0.3
-                              : 0.1 * 0.3
-                              : 0.0)
+                              begin: 0,
+                              end: swipe != Swipe.none
+                                  ? swipe == Swipe.left
+                                      ? -0.1 * 0.3
+                                      : 0.1 * 0.3
+                                  : 0.0)
                           .animate(
                         CurvedAnimation(
                           parent: _animationController,
                           curve:
-                          const Interval(0, 0.4, curve: Curves.easeInOut),
+                              const Interval(0, 0.4, curve: Curves.easeInOut),
                         ),
                       ),
                       child: DragWidget(
-                        profile: draggableItems[index],
+                        songObject: draggableItems[index],
                         index: index,
                         swipeNotifier: swipeNotifier,
+                        idNotifier: idNotifier,
                         isLastCard: true,
                       ),
                     ),
                   );
                 } else {
                   return DragWidget(
-                    profile: draggableItems[index],
+                    songObject: draggableItems[index],
                     index: index,
                     swipeNotifier: swipeNotifier,
+                    idNotifier: idNotifier,
                   );
                 }
               }),
@@ -164,10 +162,10 @@ class _CardsStackWidgetState extends State<CardsStackWidget>
           left: 0,
           child: DragTarget<int>(
             builder: (
-                BuildContext context,
-                List<dynamic> accepted,
-                List<dynamic> rejected,
-                ) {
+              BuildContext context,
+              List<dynamic> accepted,
+              List<dynamic> rejected,
+            ) {
               return IgnorePointer(
                 child: Container(
                   height: 700.0,
@@ -187,10 +185,10 @@ class _CardsStackWidgetState extends State<CardsStackWidget>
           right: 0,
           child: DragTarget<int>(
             builder: (
-                BuildContext context,
-                List<dynamic> accepted,
-                List<dynamic> rejected,
-                ) {
+              BuildContext context,
+              List<dynamic> accepted,
+              List<dynamic> rejected,
+            ) {
               return IgnorePointer(
                 child: Container(
                   height: 700.0,

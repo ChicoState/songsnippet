@@ -57,6 +57,11 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
+class LikeViewSet(viewsets.ModelViewSet):
+    queryset = FeedbackModel.objects.all().order_by('creator')
+    serializer_class = SongFeedbackSerializer
+
+
 # not sure if this works until we test
 def RecommendSong(user, count):
     excluded_song_ids = FeedbackModel.objects.filter(creator=user.id).values('song')
@@ -129,21 +134,15 @@ def SongUpload(request):
                             owner=request.user)
 
 
-def InitialSongRecommendationsHelper(initialSongRecommendationsSerializer, owner, context):
-    if initialSongRecommendationsSerializer.is_valid():
-        recommendedSongs = RecommendSong(owner,
-                                         initialSongRecommendationsSerializer.data["count"])
-        if recommendedSongs == []:
-            return Response(status=204)
+def InitialSongRecommendationsHelper(owner, context):
+    recommendedSongs = RecommendSong(owner, 1)
+    if recommendedSongs == []:
+        return Response(status=204)
 
-        recSongSerializer = SongModelSerializer(recommendedSongs, many=True, context=context)
-        return Response(recSongSerializer.data, status=200)
-    return Response(initialSongRecommendationsSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    recSongSerializer = SongModelSerializer(recommendedSongs[0], context=context)
+    return Response(recSongSerializer.data, status=200)
 
 
-@api_view(['POST'])
-#   {"count": 1}
+@api_view(['GET'])
 def InitialSongRecommendations(request):
-    initialSongRecommendationsSerializer = InitialSongRecommendationsSerializer(data=request.data)
-    return InitialSongRecommendationsHelper(initialSongRecommendationsSerializer, request.user,
-                                            {"request": Request(request)})
+    return InitialSongRecommendationsHelper(request.user, {"request": request})
