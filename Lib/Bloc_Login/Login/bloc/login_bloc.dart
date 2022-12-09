@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import '../../bloc/authentication_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 import '../../Repository/user_repository.dart';
 

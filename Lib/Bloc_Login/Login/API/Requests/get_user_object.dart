@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../../../Login/API/Response/user_object.dart';
 import '../../../Model/api_model.dart';
 import '../../../../Utils/API_Utils/url_provider.dart';
 
@@ -15,7 +14,6 @@ const _signUpUrl = _base + _signUpEndpoint;
 
 Future<Token> getToken(UserLogin userLogin) async {
   print(Uri.parse(SongSnippetURLs.songSnippetLogin));
-  print("LOOGGIN");
   print(jsonEncode(userLogin.toDatabaseJson()));
   final http.Response response = await http.post(
     Uri.parse(SongSnippetURLs.songSnippetLogin),
@@ -36,13 +34,10 @@ Future<Token> getToken(UserLogin userLogin) async {
 Future<String> getAdminToken() async {
   final UserLogin admin =
   UserLogin(username: _adminUsername, password: _adminPassword);
-  print("GET ADMIN TOKEN");
   final Token token = await getToken(admin);
   return token.token.toString();
 }
 Future<UserLogin> registerUser(UserSignup userSignup) async {
-  print("BODDDYYY");
-  print(jsonEncode(userSignup.toDatabaseJson()));
   final String adminToken = await getAdminToken();
   final http.Response response = await http.post(
     Uri.parse(_signUpUrl),
@@ -57,7 +52,6 @@ Future<UserLogin> registerUser(UserSignup userSignup) async {
         username: userSignup.user.username, password: userSignup.user.password);
     return user;
   } else {
-    print(json.decode(response.body).toString());
     throw Exception(json.decode(response.body));
   }
 }

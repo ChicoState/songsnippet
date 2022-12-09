@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../Login/API/Requests/get_user_object.dart';
-import '../Login/API/Response/user_object.dart';
-import '../Model/api_model.dart';
-import '../Bloc/authentication_bloc.dart';
 import 'bloc/register_bloc.dart';
 import 'Register_Button.dart';
-import '../Login/bloc/login_bloc.dart';
-import '../Repository/user_repository.dart';
 
 class RegisterForm extends StatefulWidget {
 
@@ -67,14 +61,6 @@ class _RegisterFormState extends State<RegisterForm> {
             );
         }
         if (state.isSuccess) {
-          final userRepository = UserRepository();
-          // UserDetails userDetails = UserDetails(username: _userNameController.text, email: _emailController.text, password: _passwordController.text);
-          // UserSignup userSignup = UserSignup(user: userDetails);
-          // UserLogin userLogin = await registerUser(userSignup);
-          final user = await userRepository.authenticate(
-              username: _userNameController.text,
-              password: _passwordController.text,);
-          BlocProvider.of<AuthenticationBloc>(context).add(LoggedIn(user: user));
           Navigator.of(context).pop();
         }
         if (state.isFailure) {
@@ -108,10 +94,6 @@ class _RegisterFormState extends State<RegisterForm> {
                     ),
                     keyboardType: TextInputType.text,
                     autocorrect: false,
-                    // autovalidate: true,
-                    // validator: (_) {
-                    //   return !state.isUsernameValid ? 'Invalid Username' : null;
-                    // },
                   ),
                   TextFormField(
                     controller: _emailController,
@@ -121,10 +103,6 @@ class _RegisterFormState extends State<RegisterForm> {
                     ),
                     keyboardType: TextInputType.emailAddress,
                     autocorrect: false,
-                    // autovalidate: true,
-                    // validator: (_) {
-                    //   return !state.isEmailValid ? 'Invalid Email' : null;
-                    // },
                   ),
                   TextFormField(
                     controller: _passwordController,
@@ -144,10 +122,6 @@ class _RegisterFormState extends State<RegisterForm> {
                     ),
                     obscureText: passwordVisible,
                     autocorrect: false,
-                    // autovalidate: true,
-                    // validator: (_) {
-                    //   return !state.isPasswordValid ? 'Invalid Password' : null;
-                    // },
                   ),
                   const SizedBox(
                     height: 25.0,

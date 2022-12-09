@@ -6,8 +6,8 @@ class UserDao {
   final dbProvider = DatabaseProvider.dbProvider;
 
   Future<int> createUser(User user) async {
+    this.deleteUser(user.id);
     final db = await dbProvider.database;
-
     var result = db.insert(userTable, user.toDatabaseJson());
     return result;
   }
@@ -40,7 +40,7 @@ class UserDao {
     try {
       List<Map> users = await db
           .query(userTable, where: 'id = ?', whereArgs: [id]);
-      if (users.length > 0) {
+      if (users.isNotEmpty) {
         return Token(token: "TOKEN "+users[0]['token']);
       } else {
         return null;

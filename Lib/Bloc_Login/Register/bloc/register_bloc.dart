@@ -15,10 +15,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final UserRepository _userRepository;
 
   RegisterBloc({required UserRepository userRepository})
-      : assert(userRepository != null),
-        _userRepository = userRepository, super(RegisterState.empty());
+      : _userRepository = userRepository, super(RegisterState.empty());
 
-  @override
   RegisterState get initialState => RegisterState.empty();
 
   @override
@@ -33,7 +31,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     final debounceStream = events.where((event) {
       return (event is EmailChanged ||
           event is PasswordChanged);
-    }).debounceTime(Duration(milliseconds: 300));
+    }).debounceTime(const Duration(milliseconds: 300));
     return super.transformEvents(
       nonDebounceStream.mergeWith([debounceStream]),
       transitionFn,
@@ -84,8 +82,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       );
       yield RegisterState.success();
     } catch (error) {
-      print("ERROR");
-      print(error);
       yield RegisterState.failure();
     }
   }

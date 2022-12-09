@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
         appBar: AppBar(title: const Text(SongSnippetStrings.title), actions: [
           ElevatedButton(
-            child: Text(
+            child: const Text(
               'Logout',
               style: TextStyle(
                 fontSize: 12,

@@ -14,7 +14,7 @@ class CreateAccountButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      child: Text(
+      child: const Text(
         'Create an Account',
       ),
       onPressed: () {

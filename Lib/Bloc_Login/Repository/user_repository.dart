@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:meta/meta.dart';
 import '../Login/API/Requests/get_user_object.dart';
 import '../Dao/user_dao.dart';
 import '../Login/API/Response/user_object.dart';
@@ -67,7 +66,6 @@ class UserRepository {
     );
 
     UserLogin registeredUser = await registerUser(userSignup);
-    print("___________________");
     Token registeredUserToken = await getToken(registeredUser);
 
 
