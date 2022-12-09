@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../Utils/music_utils.dart';
-import '../main.dart';
+import '../../Utils/music_utils.dart';
+import '../API/Response_Objects/song_object.dart';
+import '../Utils/swipe_enumerator.dart';
 import 'music_card.dart';
 import 'tag_widget.dart';
-import '../Home/API/Response_Objects/song_object.dart';
 
 
 class DragWidget extends StatefulWidget {
@@ -42,7 +42,6 @@ class _DragWidgetState extends State<DragWidget> {
   Widget build(BuildContext context) {
     return Center(
       child: Draggable<int>(
-        // Data is the value this Draggable stores.
         data: widget.index,
         feedback: Material(
           color: Colors.transparent,
@@ -115,7 +114,6 @@ class _DragWidgetState extends State<DragWidget> {
           color: Colors.transparent,
         ),
 
-        //This will be visible when we press action button
         child: ValueListenableBuilder(
             valueListenable: widget.swipeNotifier,
             builder: (BuildContext context, Swipe swipe,

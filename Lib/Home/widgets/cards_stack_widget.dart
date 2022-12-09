@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import '../Home/API/Requests/get_songs_list.dart';
-import '../Home/API/Requests/post_song_feedback.dart';
-import '../Resources/dimen.dart';
-import '../Utils/music_utils.dart';
+import '../../Resources/dimen.dart';
+import '../../Utils/music_utils.dart';
+import '../API/Requests/get_songs_list.dart';
+import '../API/Requests/post_song_feedback.dart';
+import '../API/Response_Objects/song_object.dart';
+import '../Utils/swipe_enumerator.dart';
 import 'drag_widget.dart';
-import '../Home/API/Response_Objects/song_object.dart';
 import 'action_button_widget.dart';
-import '../main.dart';
 
 class CardsStackWidget extends StatefulWidget {
   const CardsStackWidget({Key? key}) : super(key: key);
@@ -66,9 +66,11 @@ class _CardsStackWidgetState extends State<CardsStackWidget>
         bool like = swipeNotifier.value == Swipe.right ? true : false;
         getNewRec(draggableItems.last.songId, like);
         swipeNotifier.value = Swipe.none;
+
         if (draggableItems.isNotEmpty) {
           playSong(draggableItems.last);
         }
+
         setState(() {
           draggableItems;
         });

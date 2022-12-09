@@ -10,12 +10,6 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
   int _selectedIndex = 0;
 
-  //
-  //static const List<Widget> _pages = <Widget>[
-    //add here different pages such as
-    //liked songs,
-  //];
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -25,9 +19,6 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        //child: _pages.elementAt(_selectedIndex), //
-      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

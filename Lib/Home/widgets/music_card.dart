@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Home/API/Response_Objects/song_object.dart';
+import '../API/Response_Objects/song_object.dart';
 
 class MusicCard extends StatelessWidget {
   const MusicCard({Key? key, required this.songObject}) : super(key: key);
