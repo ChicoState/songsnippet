@@ -1,17 +1,14 @@
-import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:song_snippet/Repository/user_repository.dart';
 import 'package:song_snippet/Utils/API_Utils/http_header_strings.dart';
-import '../../Model/api_model.dart';
 
 Future<String> uploadSong(
     filename, url, songName, year, startTime, endTime) async {
-  final userRepo = UserRepository();
-  Token token = await userRepo.getCachedToken();
+  // final userRepo = UserRepository();
+  // Token token = await userRepo.getCachedToken();
   var request = http.MultipartRequest('POST', Uri.parse(url));
   request.files.add(await http.MultipartFile.fromPath('song', filename));
   request.headers.addAll(
-      {'Content-Type': 'multipart/form-data', 'Authorization': token.token});
+      {'Content-Type': 'multipart/form-data', 'Authorization': HTTPHeaderStrings.hardCodedToken});
   Map<String, String> fields = {
     'songName': songName,
     'start': startTime,

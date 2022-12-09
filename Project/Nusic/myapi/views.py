@@ -78,7 +78,7 @@ def RecommendSong(user, count):
     return possible_songs[0:count]
 
 
-def SongFeedbackHelper(songFeedbackSerializer, owner):
+def SongFeedbackHelper(songFeedbackSerializer, owner, context):
     if songFeedbackSerializer.is_valid():
         prevLikeObject = FeedbackModel.objects.filter(
             creator=owner,
@@ -101,15 +101,15 @@ def SongFeedbackHelper(songFeedbackSerializer, owner):
         if not recommendedSong:
             return Response(status=204)
 
-        rec = model_to_dict(recommendedSong[0])
+        rec = SongModelSerializer(recommendedSong[0], context=context)
 
-        return Response(rec, status=status.HTTP_201_CREATED)
+        return Response(rec.data, status=status.HTTP_201_CREATED)
     return Response(songFeedbackSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
 def SongFeedback(request):
-    return SongFeedbackHelper(SongFeedbackSerializer(data=request.data), request.user)
+    return SongFeedbackHelper(SongFeedbackSerializer(data=request.data), request.user, {"request": request})
 
 
 # seperate function for testing purposes
