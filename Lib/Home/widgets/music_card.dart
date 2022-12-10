@@ -48,7 +48,6 @@ class MusicCard extends StatelessWidget {
                     Text(
                       songObject.name,
                       style: const TextStyle(
-                        // Custom Font
                         fontWeight: FontWeight.w800,
                         fontSize: 21,
                       ),
@@ -56,7 +55,6 @@ class MusicCard extends StatelessWidget {
                     Text(
                       "${songObject.start} to ${songObject.end} second marks",
                       style: const TextStyle(
-                        // Custom Font
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
                         color: Colors.grey,

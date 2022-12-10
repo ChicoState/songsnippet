@@ -63,6 +63,7 @@ class _CardsStackWidgetState extends State<CardsStackWidget>
       if (status == AnimationStatus.completed) {
         draggableItems.removeLast();
         _animationController.reset();
+        _musicUtils.pause();
         bool like = swipeNotifier.value == Swipe.right ? true : false;
         getNewRec(draggableItems.last.songId, like);
         swipeNotifier.value = Swipe.none;
@@ -77,7 +78,6 @@ class _CardsStackWidgetState extends State<CardsStackWidget>
       }
     });
   }
-
 
 
   @override

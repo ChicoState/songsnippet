@@ -31,7 +31,6 @@ Future<SongObject> getInitialSongRecommendations() async {
       HttpHeaders.authorizationHeader: HTTPHeaderStrings.hardCodedToken
     },
   );
-  print(response.body);
   if (response.statusCode == 200) {
     return SongObject.fromJson(jsonDecode(response.body));
   } else if (response.statusCode == 204) {
