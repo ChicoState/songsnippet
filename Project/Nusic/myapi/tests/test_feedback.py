@@ -34,7 +34,7 @@ class FeedbackTestCase(TestCase):
                         "like": True}
         feedbackSerializer = SongFeedbackSerializer(data=feedbackJson,
                                                     context=testingUtils.get_serializer_context())
-        response = SongFeedbackHelper(feedbackSerializer, creator)
+        response = SongFeedbackHelper(feedbackSerializer, creator, testingUtils.get_serializer_context())
         self.assertEqual(response.status_code, 201)
         self.assertIsNotNone(response.data['id'])
 
@@ -47,7 +47,7 @@ class FeedbackTestCase(TestCase):
                         "like": True}
         feedbackSerializer = SongFeedbackSerializer(data=feedbackJson,
                                                     context=testingUtils.get_serializer_context())
-        response = SongFeedbackHelper(feedbackSerializer, creator)
+        response = SongFeedbackHelper(feedbackSerializer, creator, testingUtils.get_serializer_context())
         self.assertEqual(response.status_code, 204)
 
 
@@ -59,5 +59,5 @@ class FeedbackTestCase(TestCase):
                         "like": True}
         feedbackSerializer = SongFeedbackSerializer(data=feedbackJson,
                                                     context=testingUtils.get_serializer_context())
-        response = SongFeedbackHelper(feedbackSerializer, creator)
+        response = SongFeedbackHelper(feedbackSerializer, creator, testingUtils.get_serializer_context())
         self.assertEqual(response.status_code, 400)
