@@ -16,7 +16,7 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with WidgetsBindingObserver{
   late final MusicUtils _musicUtils;
 
   //Lazy initialized
@@ -25,13 +25,33 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _musicUtils = MusicUtils();
   }
 
   @override
   void dispose() {
     _musicUtils.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    // there are 4 states: Resumed, Inactive, Paused, and Detatched
+    // resumed state is when the app comes back to the foreground, but not when first initialized
+    // inactive is when the app is out of focus, for example a dialog box pops up
+    // paused is when the app is fully in the background
+    // detached is when the app is closed
+
+    if (state == AppLifecycleState.inactive) return;
+
+    if (state == AppLifecycleState.paused || state == AppLifecycleState.detached) {
+      _musicUtils.pause();
+    }
+
   }
 
   @override
