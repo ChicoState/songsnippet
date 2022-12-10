@@ -31,7 +31,7 @@ class UserSerializer(serializers.ModelSerializer):
 class SongModelSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = SongModel
-        fields = ('songName', 'year', 'artist', 'start', 'end', 'song')
+        fields = ('songName', 'year', 'artist', 'start', 'end', 'song', 'id')
 
 
 class SongFeedbackSerializer(serializers.ModelSerializer):
