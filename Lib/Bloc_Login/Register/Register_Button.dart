@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'Resources/strings.dart';
 class RegisterButton extends StatelessWidget {
   final VoidCallback? _onPressed;
 
@@ -11,7 +11,7 @@ class RegisterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: _onPressed,
-      child: Text('Register'),
+      child: Text(RegisterStrings.registerButtonText),
     );
   }
 }

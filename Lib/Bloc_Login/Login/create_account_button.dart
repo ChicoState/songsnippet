@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../Repository/user_repository.dart';
 import '../Register/register_screen.dart';
+import 'Resources/strings.dart';
 
 class CreateAccountButton extends StatelessWidget {
   final UserRepository _userRepository;
@@ -15,7 +16,7 @@ class CreateAccountButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       child: const Text(
-        'Create an Account',
+        LoginStrings.createAccountButtonText,
       ),
       onPressed: () {
         Navigator.of(context).push(
