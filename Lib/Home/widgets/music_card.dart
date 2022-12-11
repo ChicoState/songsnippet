@@ -7,6 +7,7 @@ class MusicCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(songObject.name);
     return Container(
       height: 580,
       width: 340,
@@ -49,6 +50,7 @@ class MusicCard extends StatelessWidget {
                       songObject.name,
                       style: const TextStyle(
                         fontWeight: FontWeight.w800,
+                        color: Colors.green,
                         fontSize: 21,
                       ),
                     ),
