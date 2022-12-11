@@ -7,7 +7,7 @@ class MusicUtils {
   MusicUtils() {
     _init();
   }
-  
+
   //we moved the async task to the init method because we can't otherwise in the constructor
   void _init() async {
     _audioPlayer = AudioPlayer();
@@ -22,12 +22,17 @@ class MusicUtils {
   }
 
   void play(int startTime, int endTime) async {
-    await _audioPlayer.setClip(start: Duration(seconds: startTime), end: Duration(seconds:endTime));
+    await _audioPlayer.setClip(
+        start: Duration(seconds: startTime), end: Duration(seconds: endTime));
     _audioPlayer.play();
   }
 
   void pause() {
     _audioPlayer.pause();
+  }
+
+  void resume() {
+    _audioPlayer.play();
   }
 
   void dispose() {
