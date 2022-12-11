@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:song_snippet/Resources/dimen.dart';
 import 'Bloc/register_bloc.dart';
 import 'Register_Button.dart';
+import 'Resources/strings.dart';
 
 class RegisterForm extends StatefulWidget {
 
@@ -26,7 +28,6 @@ class _RegisterFormState extends State<RegisterForm> {
 
   bool
   isRegisterButtonEnabled(RegisterState state) {
-    print(state);
     return isPopulated && !state.isSubmitting;
   }
 
@@ -53,7 +54,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 content: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
-                    Text('Registering...'),
+                    Text(RegisterStrings.pendingRegistrationString),
                     CircularProgressIndicator(),
                   ],
                 ),
@@ -61,6 +62,19 @@ class _RegisterFormState extends State<RegisterForm> {
             );
         }
         if (state.isSuccess) {
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text(RegisterStrings.snackbarRegistrationSuccess),
+                  Icon(Icons.check),
+                ],
+              ),
+              backgroundColor: Colors.lightGreen,
+            ),
+          );
           Navigator.of(context).pop();
         }
         if (state.isFailure) {
@@ -70,7 +84,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 content: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
-                    Text('Registration Failure'),
+                    Text(RegisterStrings.snackbarRegistrationFailure),
                     Icon(Icons.error),
                   ],
                 ),
@@ -90,7 +104,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     controller: _userNameController,
                     decoration: const InputDecoration(
                       icon: Icon(Icons.person),
-                      labelText: 'Username',
+                      labelText: RegisterStrings.registerUsernamePlaceholder,
                     ),
                     keyboardType: TextInputType.text,
                     autocorrect: false,
@@ -99,7 +113,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     controller: _emailController,
                     decoration: const InputDecoration(
                       icon: Icon(Icons.email),
-                      labelText: 'Email',
+                      labelText: RegisterStrings.registerEmailPlaceholder,
                     ),
                     keyboardType: TextInputType.emailAddress,
                     autocorrect: false,
@@ -108,7 +122,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     controller: _passwordController,
                     decoration: InputDecoration(
                       icon: const Icon(Icons.lock),
-                      labelText: 'Password',
+                      labelText: RegisterStrings.registerPasswordPlaceholder,
                       suffixIcon: IconButton(
                           icon: passwordVisible
                               ? const Icon(Icons.visibility)
@@ -124,7 +138,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     autocorrect: false,
                   ),
                   const SizedBox(
-                    height: 25.0,
+                    height: SongSnippetDimen.padding3x,
                   ),
 
                   RegisterButton(
