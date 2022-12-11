@@ -19,11 +19,4 @@ class Validators {
   static isValidPassword(String password) {
     return _passwordRegExp.hasMatch(password);
   }
-
-  static isPinCodeValid(int pinCode) {
-    if (pinCode.toString().length == 6){
-      return true;
-    }
-    return false;
-  }
 }

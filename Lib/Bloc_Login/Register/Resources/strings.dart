@@ -6,4 +6,5 @@ class RegisterStrings {
   static const String registerUsernamePlaceholder = "Username";
   static const String registerEmailPlaceholder = "Email";
   static const String registerPasswordPlaceholder = "Password";
+  static const String registerScreenTitle = "Register";
 }

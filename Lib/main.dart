@@ -5,6 +5,7 @@ import 'Bloc_Login/Bloc/authentication_bloc.dart';
 import 'Bloc_Login/login_page.dart';
 import 'Bloc_Login/Common/common.dart';
 import 'Home/home.dart';
+import 'Resources/strings.dart';
 
 void main() {
   final userRepository = UserRepository();
@@ -36,7 +37,7 @@ class App extends StatelessWidget {
           if (state is AuthenticationUnintialized) {
             return const Scaffold(
               body: Center(
-                child: Text('Splash Screen'),
+                child: Text(SongSnippetStrings.splashScreenText),
               ),
             );
           }

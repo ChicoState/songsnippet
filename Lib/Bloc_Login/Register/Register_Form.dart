@@ -96,7 +96,7 @@ class _RegisterFormState extends State<RegisterForm> {
       child: BlocBuilder<RegisterBloc, RegisterState>(
         builder: (context, state) {
           return Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(SongSnippetDimen.padding2x),
             child: Form(
               child: ListView(
                 children: <Widget>[

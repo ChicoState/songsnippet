@@ -7,4 +7,6 @@ class SongSnippetStrings {
   static const String dislikeTag = "DISLIKE";
   static const String loginUsernamePlaceholder = "Username";
   static const String loginPasswordPlaceholder = "Password";
+  static const String logoutButton = "Logout";
+  static const String splashScreenText = "Splash Screen";
 }

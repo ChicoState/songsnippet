@@ -11,14 +11,13 @@ class LoginPage extends StatelessWidget {
   final UserRepository userRepository;
 
   const LoginPage({Key? key, required this.userRepository})
-      : assert(userRepository != null),
-        super(key: key);
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login | Home Hub'),
+        title: const Text('Login'),
       ),
       body: BlocProvider(
         create: (context) {

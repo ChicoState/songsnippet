@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
         appBar: AppBar(title: const Text(SongSnippetStrings.title), actions: [
           ElevatedButton(
             child: const Text(
-              'Logout',
+              SongSnippetStrings.logoutButton,
               style: TextStyle(
                 fontSize: 12,
               ),
@@ -34,18 +34,4 @@ class _HomeState extends State<Home> {
   }
 }
 
-// class LogoutAppBar extends StatelessWidget with PreferredSizeWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-//       builder: (context, state) {
-//         return
-//       },
-//     )
-//   }
-//
-//   @override
-//   // TODO: implement preferredSize
-//   Size get preferredSize => throw UnimplementedError();
-//
-// }
+
