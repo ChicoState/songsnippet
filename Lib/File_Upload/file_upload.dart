@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:song_snippet/File_Upload/file_form_field.dart';
+import '../main.dart';
 import 'form_utils.dart';
 import 'Utils/upload_utils.dart';
 import '../Utils/API_Utils/url_provider.dart';
@@ -13,7 +14,7 @@ class UploadPage extends StatefulWidget {
   _UploadPageState createState() => _UploadPageState();
 }
 
-class _UploadPageState extends State<UploadPage> {
+class _UploadPageState extends State<UploadPage> with RouteAware {
   String state = "";
   late File file;
   final _formKey = GlobalKey<FormState>();
@@ -28,7 +29,14 @@ class _UploadPageState extends State<UploadPage> {
     timeStartController.dispose();
     timeEndController.dispose();
     yearController.dispose();
+    routeObserver.unsubscribe(this);
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies () {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
   @override

@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../Bloc_Login/Bloc/authentication_bloc.dart';
+import '../File_Upload/file_upload.dart';
 import '../Resources/strings.dart';
+import '../Utils/music_utils.dart';
 import 'widgets/cards_stack_widget.dart';
 
 class Home extends StatefulWidget {
@@ -13,6 +15,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  MusicUtils musicUtils = MusicUtils();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +32,17 @@ class _HomeState extends State<Home> {
               BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
             },
           ),
+          ElevatedButton(
+              onPressed: (){
+                musicUtils.pause();
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) {
+                    return const UploadPage();
+                  }),
+                );
+              },
+              child: const Icon(Icons.add))
         ]),
-        body: const CardsStackWidget());
+        body: CardsStackWidget(musicUtils: musicUtils,));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../Resources/dimen.dart';
 import '../../Utils/music_utils.dart';
+import '../../main.dart';
 import '../API/Requests/get_songs_list.dart';
 import '../API/Requests/post_song_feedback.dart';
 import '../API/Response_Objects/song_object.dart';
@@ -9,17 +10,18 @@ import 'drag_widget.dart';
 import 'action_button_widget.dart';
 
 class CardsStackWidget extends StatefulWidget {
-  const CardsStackWidget({Key? key}) : super(key: key);
+  static int startStackSize = 2;
+  final MusicUtils musicUtils;
+  const CardsStackWidget({Key? key, required this.musicUtils}) : super(key: key);
 
   @override
   State<CardsStackWidget> createState() => _CardsStackWidgetState();
-  static int startStackSize = 2;
 }
 
 class _CardsStackWidgetState extends State<CardsStackWidget>
-    with WidgetsBindingObserver, SingleTickerProviderStateMixin {
+    with WidgetsBindingObserver, SingleTickerProviderStateMixin, RouteAware {
+
   late List<SongObject> draggableItems = [];
-  late final MusicUtils _musicUtils;
   ValueNotifier<Swipe> swipeNotifier = ValueNotifier(Swipe.none);
   late final AnimationController _animationController;
 
@@ -46,14 +48,13 @@ class _CardsStackWidgetState extends State<CardsStackWidget>
   }
 
   void playSong(SongObject songObject) async {
-    await _musicUtils.setUrl(songObject.songUrl);
-    _musicUtils.play(songObject.start, songObject.end);
+    await widget.musicUtils.setUrl(songObject.songUrl);
+    widget.musicUtils.play(songObject.start, songObject.end);
   }
 
   @override
   void initState() {
     super.initState();
-    _musicUtils = MusicUtils();
     WidgetsBinding.instance.addObserver(this);
     getInitialRecs();
     _animationController = AnimationController(
@@ -64,7 +65,7 @@ class _CardsStackWidgetState extends State<CardsStackWidget>
       if (status == AnimationStatus.completed) {
         draggableItems.removeLast();
         _animationController.reset();
-        _musicUtils.pause();
+        widget.musicUtils.pause();
         bool like = swipeNotifier.value == Swipe.right ? true : false;
         getNewRec(draggableItems.last.songId, like);
         swipeNotifier.value = Swipe.none;
@@ -82,9 +83,21 @@ class _CardsStackWidgetState extends State<CardsStackWidget>
 
   @override
   void dispose() {
-    _musicUtils.dispose();
+    widget.musicUtils.dispose();
     WidgetsBinding.instance.removeObserver(this);
+    routeObserver.unsubscribe(this);
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies () {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  @override
+  void didPopNext() {
+    widget.musicUtils.resume();
   }
 
   @override
@@ -102,11 +115,11 @@ class _CardsStackWidgetState extends State<CardsStackWidget>
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.detached ||
         state == AppLifecycleState.inactive) {
-      _musicUtils.pause();
+      widget.musicUtils.pause();
     }
 
     if (state == AppLifecycleState.resumed) {
-      _musicUtils.resume();
+      widget.musicUtils.resume();
     }
   }
 

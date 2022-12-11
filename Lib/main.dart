@@ -7,6 +7,8 @@ import 'Bloc_Login/Common/common.dart';
 import 'Home/home.dart';
 import 'Resources/strings.dart';
 
+final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver<ModalRoute<void>>();
+
 void main() {
   final userRepository = UserRepository();
   runApp(BlocProvider<AuthenticationBloc>(
@@ -22,7 +24,6 @@ void main() {
 
 class App extends StatelessWidget {
   final UserRepository userRepository;
-
   const App({Key? key, required this.userRepository}) : super(key: key);
 
   @override
@@ -50,6 +51,7 @@ class App extends StatelessWidget {
           return LoadingIndicator();
         },
       ),
+      navigatorObservers: [ routeObserver ],
     );
   }
 }
