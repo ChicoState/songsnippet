@@ -40,7 +40,8 @@ class _DragWidgetState extends State<DragWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      alignment: Alignment.topCenter,
       child: Draggable<int>(
         data: widget.index,
         feedback: Material(

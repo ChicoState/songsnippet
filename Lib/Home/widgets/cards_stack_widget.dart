@@ -201,7 +201,7 @@ class _CardsStackWidgetState extends State<CardsStackWidget>
               ),
             ),
             Positioned(
-              bottom: 10,
+              bottom: -25,
               left: 0,
               right: 0,
               child: Padding(
