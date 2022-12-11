@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../Resources/dimen.dart';
 import '../Login/Bloc/login_bloc.dart';
 import 'create_account_button.dart';
 import '../Repository/user_repository.dart';
+import 'Resources/strings.dart';
+import 'Resources/dimen.dart';
 
 class LoginForm extends StatefulWidget {
 
@@ -43,38 +46,38 @@ class _LoginFormState extends State<LoginForm> {
           return Container(
             child: Form(
               child: Padding(
-                padding: const EdgeInsets.all(40.0),
+                padding: const EdgeInsets.all(SongSnippetDimen.padding6x),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     TextFormField(
                       decoration: const InputDecoration(
-                          labelText: 'username', icon: Icon(Icons.person)),
+                          labelText: LoginStrings.loginUsernamePlaceholder, icon: Icon(Icons.person)),
                       controller: _usernameController,
                     ),
                     TextFormField(
                       decoration: const InputDecoration(
-                          labelText: 'password', icon: Icon(Icons.security)),
+                          labelText: LoginStrings.loginPasswordPlaceholder, icon: Icon(Icons.security)),
                       controller: _passwordController,
                       obscureText: true,
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.width * 0.22,
+                      width: MediaQuery.of(context).size.width * LoginDimen.loginButtonWidthMultiplier,
+                      height: MediaQuery.of(context).size.width * LoginDimen.loginButtonHeightMultiplier,
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 30.0),
+                        padding: const EdgeInsets.only(top: SongSnippetDimen.padding4x),
                         child: ElevatedButton(
                           onPressed: state is! LoginLoading
                               ? _onLoginButtonPressed
                               : null,
-                          child: const Text('Login'),
+                          child: const Text(LoginStrings.loginButtonText),
                           ),
                         ),
                       ),
                     Container(
                         child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 20),
+                          padding: const EdgeInsets.symmetric(vertical: SongSnippetDimen.padding3x),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: <Widget>[

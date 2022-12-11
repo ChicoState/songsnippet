@@ -5,4 +5,6 @@ class SongSnippetStrings {
   static const String noSongException = "No more songs to recommend";
   static const String likeTag = "LIKE";
   static const String dislikeTag = "DISLIKE";
+  static const String loginUsernamePlaceholder = "Username";
+  static const String loginPasswordPlaceholder = "Password";
 }
