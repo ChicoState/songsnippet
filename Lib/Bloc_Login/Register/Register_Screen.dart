@@ -18,7 +18,7 @@ class RegisterScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(RegisterStrings.registerScreenTitle),
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.indigoAccent,
       ),
       body: Center(
         child: BlocProvider<RegisterBloc>(

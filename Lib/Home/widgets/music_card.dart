@@ -29,7 +29,7 @@ class MusicCard extends StatelessWidget {
               height: 80,
               width: 340,
               decoration: ShapeDecoration(
-                color: Colors.white,
+                color: Colors.indigo,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -50,7 +50,7 @@ class MusicCard extends StatelessWidget {
                       songObject.name,
                       style: const TextStyle(
                         fontWeight: FontWeight.w800,
-                        color: Colors.green,
+                        color: Colors.white,
                         fontSize: 21,
                       ),
                     ),
@@ -59,7 +59,7 @@ class MusicCard extends StatelessWidget {
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
-                        color: Colors.grey,
+                        color: Colors.amber,
                       ),
                     ),
                   ],
