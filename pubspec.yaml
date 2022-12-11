@@ -37,7 +37,10 @@ dependencies:
   meta: ^1.1.6
   equatable: ^2.0.5
   sqflite: ^2.1.0
+  drift: ^2.2.0
+  sqlite3_flutter_libs: ^0.5.0
   path_provider: ^2.0.0
+  path: ^1.8.2
   mockito: ^5.3.2
   file_picker: ^5.2.1
   dart_code_metrics: ^5.1.0
@@ -52,6 +55,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  drift_dev: ^2.2.0+1
+  build_runner: ^2.2.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

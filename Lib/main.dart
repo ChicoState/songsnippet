@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'Bloc_Login/Repository/user_repository.dart';
+import 'Bloc_Login/Bloc/authentication_bloc.dart';
+import 'Bloc_Login/login_page.dart';
+import 'Bloc_Login/Common/common.dart';
 import 'Home/home.dart';
-import 'Repository/user_repository.dart';
-import 'bloc/authentication_bloc.dart';
-import 'Login/login_page.dart';
-import 'Common/common.dart';
-
+import 'Resources/strings.dart';
 
 void main() {
   final userRepository = UserRepository();
@@ -16,7 +16,6 @@ void main() {
     },
     child: App(
       userRepository: userRepository,
-      key: null,
     ),
   ));
 }
@@ -36,9 +35,9 @@ class App extends StatelessWidget {
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is AuthenticationUnintialized) {
-            return Scaffold(
+            return const Scaffold(
               body: Center(
-                child: Text('Splash Screen'),
+                child: Text(SongSnippetStrings.splashScreenText),
               ),
             );
           }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class SongSnippetColors {
-
   static const MaterialColor burgandy = MaterialColor(
     _burgandy,
     <int, Color>{
@@ -86,8 +85,4 @@ class SongSnippetColors {
     },
   );
   static const int _maple = 0xFF1E000E;
-
 }
-
-
-

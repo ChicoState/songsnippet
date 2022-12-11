@@ -12,7 +12,7 @@ class TagWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal:12),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: ShapeDecoration(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -26,7 +26,7 @@ class TagWidget extends StatelessWidget {
         text,
         style: TextStyle(
           color: color,
-          fontSize:36,
+          fontSize: 36,
         ),
       ),
     );
