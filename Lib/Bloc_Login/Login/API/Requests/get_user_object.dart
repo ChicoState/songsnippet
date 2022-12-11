@@ -13,8 +13,6 @@ const _signUpEndpoint = "user/";
 const _signUpUrl = _base + _signUpEndpoint;
 
 Future<Token> getToken(UserLogin userLogin) async {
-  print(Uri.parse(SongSnippetURLs.songSnippetLogin));
-  print(jsonEncode(userLogin.toDatabaseJson()));
   final http.Response response = await http.post(
     Uri.parse(SongSnippetURLs.songSnippetLogin),
     headers: <String, String>{
@@ -22,9 +20,7 @@ Future<Token> getToken(UserLogin userLogin) async {
     },
     body: jsonEncode(userLogin.toDatabaseJson()),
   );
-  print(response.toString());
   if (response.statusCode == 200) {
-    print(json.decode(response.body));
     return Token.fromJson(json.decode(response.body));
   } else {
 

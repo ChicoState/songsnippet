@@ -1,37 +1,31 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'Home/home_view_model.dart';
-import 'Resources/theme.dart';
-import 'Home/home.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'Bloc_Login/Repository/user_repository.dart';
-import 'Bloc_Login/bloc/authentication_bloc.dart';
+import 'Bloc_Login/Bloc/authentication_bloc.dart';
 import 'Bloc_Login/login_page.dart';
 import 'Bloc_Login/Common/common.dart';
+import 'Home/home.dart';
 
 void main() {
   final userRepository = UserRepository();
-  runApp(
-      BlocProvider<AuthenticationBloc>(
-        create: (context) {
-          return AuthenticationBloc(
-              userRepository: userRepository
-          )..add(AppStarted());
-        },
-        child: App(userRepository: userRepository, key: null,),
-      )
-  );
+  runApp(BlocProvider<AuthenticationBloc>(
+    create: (context) {
+      return AuthenticationBloc(userRepository: userRepository)
+        ..add(AppStarted());
+    },
+    child: App(
+      userRepository: userRepository,
+    ),
+  ));
 }
 
 class App extends StatelessWidget {
   final UserRepository userRepository;
 
-  const App({Key? key, required this.userRepository})
-      : super(key: key);
+  const App({Key? key, required this.userRepository}) : super(key: key);
 
   @override
-  Widget build (BuildContext context) {
+  Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.green,
@@ -40,7 +34,7 @@ class App extends StatelessWidget {
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is AuthenticationUnintialized) {
-            return Scaffold(
+            return const Scaffold(
               body: Center(
                 child: Text('Splash Screen'),
               ),
