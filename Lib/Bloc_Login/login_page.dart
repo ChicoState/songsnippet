@@ -10,8 +10,7 @@ import 'Login/login_form.dart';
 class LoginPage extends StatelessWidget {
   final UserRepository userRepository;
 
-  const LoginPage({Key? key, required this.userRepository})
-      : super(key: key);
+  const LoginPage({Key? key, required this.userRepository}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

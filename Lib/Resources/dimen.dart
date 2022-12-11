@@ -10,5 +10,4 @@ class SongSnippetDimen {
   static const double padding8x = 54.0;
   static const double musicCardHeight = 580.0;
   static const double musicCardWidth = 340.0;
-
 }

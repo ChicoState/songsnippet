@@ -29,19 +29,19 @@ class MusicCard extends StatelessWidget {
               height: 80,
               width: 340,
               decoration: ShapeDecoration(
-                color:Colors.white,
+                color: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
                 shadows: <BoxShadow>[
                   BoxShadow(
-                    color:Colors.black.withOpacity(0.05),
+                    color: Colors.black.withOpacity(0.05),
                     blurRadius: 8,
                   ),
                 ],
               ),
               child: Padding(
-                padding: const EdgeInsets.only(left:20),
+                padding: const EdgeInsets.only(left: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,

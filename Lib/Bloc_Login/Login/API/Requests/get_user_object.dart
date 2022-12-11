@@ -23,16 +23,17 @@ Future<Token> getToken(UserLogin userLogin) async {
   if (response.statusCode == 200) {
     return Token.fromJson(json.decode(response.body));
   } else {
-
     throw Exception(json.decode(response.body));
   }
 }
+
 Future<String> getAdminToken() async {
   final UserLogin admin =
-  UserLogin(username: _adminUsername, password: _adminPassword);
+      UserLogin(username: _adminUsername, password: _adminPassword);
   final Token token = await getToken(admin);
   return token.token.toString();
 }
+
 Future<UserLogin> registerUser(UserSignup userSignup) async {
   final String adminToken = await getAdminToken();
   final http.Response response = await http.post(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Resources/strings.dart';
+
 class RegisterButton extends StatelessWidget {
   final VoidCallback? _onPressed;
 

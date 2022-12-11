@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import '../../Repository/user_repository.dart';
 
 part 'login_event.dart';
+
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -16,13 +17,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     required this.authenticationBloc,
   })  : assert(userRepository != null),
         assert(authenticationBloc != null),
-        super(LoginInitial())
-  ;
+        super(LoginInitial());
 
   @override
   Stream<LoginState> mapEventToState(
-      LoginEvent event,
-      ) async* {
+    LoginEvent event,
+  ) async* {
     if (event is LoginButtonPressed) {
       yield LoginInitial();
 

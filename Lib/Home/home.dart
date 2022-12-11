@@ -29,9 +29,6 @@ class _HomeState extends State<Home> {
             },
           ),
         ]),
-    body: const CardsStackWidget()
-    );
+        body: const CardsStackWidget());
   }
 }
-
-

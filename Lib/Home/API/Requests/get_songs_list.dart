@@ -40,12 +40,8 @@ Future<SongObject> getInitialSongRecommendations() async {
   if (response.statusCode == 200) {
     return SongObject.fromJson(jsonDecode(response.body));
   } else if (response.statusCode == 204) {
-    throw Exception(
-        SongSnippetStrings.noSongException
-    );
+    throw Exception(SongSnippetStrings.noSongException);
   } else {
-    throw Exception(
-        "Failed to get song, status code = ${response.statusCode}"
-    );
+    throw Exception("Failed to get song, status code = ${response.statusCode}");
   }
 }

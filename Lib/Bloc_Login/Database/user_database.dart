@@ -11,8 +11,8 @@ class DatabaseProvider {
   static final DatabaseProvider dbProvider = DatabaseProvider();
 
   static Database? _database;
-  Future<Database> get database async =>
-      _database ??= await createDatabase();
+
+  Future<Database> get database async => _database ??= await createDatabase();
 
   createDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
@@ -31,17 +31,15 @@ class DatabaseProvider {
     Database database,
     int oldVersion,
     int newVersion,
-  ){
-    if (newVersion > oldVersion){}
+  ) {
+    if (newVersion > oldVersion) {}
   }
 
   void initDB(Database database, int version) async {
-    await database.execute(
-      "CREATE TABLE $userTable ("
-      "id INTEGER PRIMARY KEY, "
-      "username TEXT, "
-      "token TEXT "
-      ")"
-    );
+    await database.execute("CREATE TABLE $userTable ("
+        "id INTEGER PRIMARY KEY, "
+        "username TEXT, "
+        "token TEXT "
+        ")");
   }
 }

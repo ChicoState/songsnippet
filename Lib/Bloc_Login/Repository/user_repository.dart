@@ -11,10 +11,7 @@ class UserRepository {
     required String username,
     required String password,
   }) async {
-    UserLogin userLogin = UserLogin(
-        username: username,
-        password: password
-    );
+    UserLogin userLogin = UserLogin(username: username, password: password);
     Token token = (await getToken(userLogin));
     User user = User(
       id: 0,
@@ -24,25 +21,21 @@ class UserRepository {
     return user;
   }
 
-  Future<void> persistToken({
-    required User user
-  }) async {
+  Future<void> persistToken({required User user}) async {
     // write token with the user to the database
     await userDao.createUser(user);
   }
 
-  Future <void> deleteToken({
-    required int id
-  }) async {
+  Future<void> deleteToken({required int id}) async {
     await userDao.deleteUser(id);
   }
 
-  Future <bool> hasToken() async {
+  Future<bool> hasToken() async {
     bool result = await userDao.checkUser(0);
     return result;
   }
 
-  Future <Token> getCachedToken() async {
+  Future<Token> getCachedToken() async {
     Token? token = await userDao.getUserToken(0);
     if (token != null) {
       return token;
@@ -50,16 +43,13 @@ class UserRepository {
     throw "Not logged in";
   }
 
-  Future <void> signUp({
+  Future<void> signUp({
     required String userName,
     required String email,
     required String password,
   }) async {
-    UserDetails userDetails = UserDetails(
-        username: userName,
-        email: email,
-        password: password
-    );
+    UserDetails userDetails =
+        UserDetails(username: userName, email: email, password: password);
 
     UserSignup userSignup = UserSignup(
       user: userDetails,
@@ -67,7 +57,6 @@ class UserRepository {
 
     UserLogin registeredUser = await registerUser(userSignup);
     Token registeredUserToken = await getToken(registeredUser);
-
 
     User user = User(
       id: 0,

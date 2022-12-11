@@ -3,10 +3,8 @@ import 'song_object.dart';
 class SongList {
   final List<SongObject> songList;
 
-  const SongList({
-    required this.songList
-  });
-  
+  const SongList({required this.songList});
+
   factory SongList.fromJson(List<dynamic> json) {
     List<SongObject> songListTemp = [];
     json.forEach((element) {

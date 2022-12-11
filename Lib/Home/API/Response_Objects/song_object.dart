@@ -28,13 +28,13 @@ class SongObject {
   factory SongObject.fromJson(Map<String, dynamic> json) {
     String? image = json[keyImageUrl];
     image ??= 'assets/images/gen_art.png';
-    return SongObject(name: json[keyName],
+    return SongObject(
+        name: json[keyName],
         artist: json[keyArtist],
         start: json[keyStart],
         end: json[keyEnd],
         songUrl: json[keySongUrl],
         imageUrl: image,
-        songId: json[keySongId]
-    );
+        songId: json[keySongId]);
   }
 }

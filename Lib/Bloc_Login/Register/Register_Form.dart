@@ -6,7 +6,6 @@ import 'Register_Button.dart';
 import 'Resources/strings.dart';
 
 class RegisterForm extends StatefulWidget {
-
   const RegisterForm({super.key});
 
   @override
@@ -26,11 +25,9 @@ class _RegisterFormState extends State<RegisterForm> {
       _emailController.text.isNotEmpty &&
       _passwordController.text.isNotEmpty;
 
-  bool
-  isRegisterButtonEnabled(RegisterState state) {
+  bool isRegisterButtonEnabled(RegisterState state) {
     return isPopulated && !state.isSubmitting;
   }
-
 
   @override
   void initState() {
@@ -43,23 +40,21 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocListener<RegisterBloc, RegisterState>(
       listener: (context, state) async {
         if (state.isSubmitting) {
-
           ScaffoldMessenger.of(context).removeCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(RegisterStrings.pendingRegistrationString),
-                    CircularProgressIndicator(),
-                  ],
-                ),
+            SnackBar(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text(RegisterStrings.pendingRegistrationString),
+                  CircularProgressIndicator(),
+                ],
               ),
-            );
+            ),
+          );
         }
         if (state.isSuccess) {
           ScaffoldMessenger.of(context).removeCurrentSnackBar();
@@ -80,17 +75,17 @@ class _RegisterFormState extends State<RegisterForm> {
         if (state.isFailure) {
           ScaffoldMessenger.of(context).removeCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(RegisterStrings.snackbarRegistrationFailure),
-                    Icon(Icons.error),
-                  ],
-                ),
-                backgroundColor: Colors.red,
+            SnackBar(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text(RegisterStrings.snackbarRegistrationFailure),
+                  Icon(Icons.error),
+                ],
               ),
-            );
+              backgroundColor: Colors.red,
+            ),
+          );
         }
       },
       child: BlocBuilder<RegisterBloc, RegisterState>(
@@ -140,10 +135,10 @@ class _RegisterFormState extends State<RegisterForm> {
                   const SizedBox(
                     height: SongSnippetDimen.padding3x,
                   ),
-
                   RegisterButton(
-                    onPressed: isRegisterButtonEnabled(state) ?
-                    _onFormSubmitted : null,
+                    onPressed: isRegisterButtonEnabled(state)
+                        ? _onFormSubmitted
+                        : null,
                   ),
                 ],
               ),
@@ -152,7 +147,6 @@ class _RegisterFormState extends State<RegisterForm> {
         },
       ),
     );
-
   }
 
   @override
@@ -177,10 +171,10 @@ class _RegisterFormState extends State<RegisterForm> {
   void _onFormSubmitted() {
     _registerBloc.add(
       Submitted(
-          userName: _userNameController.text,
-          email: _emailController.text,
-          password: _passwordController.text,
-),
+        userName: _userNameController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+      ),
     );
   }
 }
