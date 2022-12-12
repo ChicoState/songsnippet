@@ -8,7 +8,7 @@ class MusicCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 580,
+      height: 640,
       width: 340,
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Stack(
