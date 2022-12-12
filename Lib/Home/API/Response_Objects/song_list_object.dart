@@ -7,9 +7,9 @@ class SongList {
 
   factory SongList.fromJson(List<dynamic> json) {
     List<SongObject> songListTemp = [];
-    json.forEach((element) {
+    for (var element in json) {
       songListTemp.add(SongObject.fromJson(element));
-    });
+    }
     return SongList(songList: songListTemp);
   }
 }

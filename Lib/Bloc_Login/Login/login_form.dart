@@ -38,68 +38,65 @@ class _LoginFormState extends State<LoginForm> {
       listener: (context, state) {
         if (state is LoginFaliure) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text('${state.error}'),
+            content: Text(state.error),
             backgroundColor: Colors.red,
           ));
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
-          return Container(
-            child: Form(
-              child: Padding(
-                padding: const EdgeInsets.all(SongSnippetDimen.padding6x),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+          return Form(
+            child: Padding(
+              padding: const EdgeInsets.all(SongSnippetDimen.padding6x),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  TextFormField(
+                    decoration: const InputDecoration(
+                        labelText: LoginStrings.loginUsernamePlaceholder,
+                        icon: Icon(Icons.person)),
+                    controller: _usernameController,
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                        labelText: LoginStrings.loginPasswordPlaceholder,
+                        icon: Icon(Icons.security)),
+                    controller: _passwordController,
+                    obscureText: true,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width *
+                        LoginDimen.loginButtonWidthMultiplier,
+                    height: MediaQuery.of(context).size.width *
+                        LoginDimen.loginButtonHeightMultiplier,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: SongSnippetDimen.padding4x),
+                      child: ElevatedButton(
+                        onPressed: state is! LoginLoading
+                            ? _onLoginButtonPressed
+                            : null,
+                        child: const Text(LoginStrings.loginButtonText),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                    vertical: SongSnippetDimen.padding3x),
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          labelText: LoginStrings.loginUsernamePlaceholder,
-                          icon: Icon(Icons.person)),
-                      controller: _usernameController,
-                    ),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                          labelText: LoginStrings.loginPasswordPlaceholder,
-                          icon: Icon(Icons.security)),
-                      controller: _passwordController,
-                      obscureText: true,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width *
-                          LoginDimen.loginButtonWidthMultiplier,
-                      height: MediaQuery.of(context).size.width *
-                          LoginDimen.loginButtonHeightMultiplier,
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: SongSnippetDimen.padding4x),
-                        child: ElevatedButton(
-                          onPressed: state is! LoginLoading
-                              ? _onLoginButtonPressed
-                              : null,
-                          child: const Text(LoginStrings.loginButtonText),
-                        ),
-                      ),
-                    ),
-                    Container(
-                        child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: SongSnippetDimen.padding3x),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          CreateAccountButton(userRepository: _userRepository),
-                        ],
-                      ),
-                    )),
-                    Container(
-                      child: state is LoginLoading
-                          ? const CircularProgressIndicator()
-                          : null,
-                    ),
+                    CreateAccountButton(userRepository: _userRepository),
                   ],
-                ),
+                    ),
+                  ),
+                  Container(
+                    child: state is LoginLoading
+                        ? const CircularProgressIndicator()
+                        : null,
+                  ),
+                ],
               ),
             ),
           );

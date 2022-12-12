@@ -7,9 +7,8 @@ import 'Resources/strings.dart';
 class CreateAccountButton extends StatelessWidget {
   final UserRepository _userRepository;
 
-  CreateAccountButton({Key? key, required UserRepository userRepository})
-      : assert(userRepository != null),
-        _userRepository = userRepository,
+  const CreateAccountButton({Key? key, required UserRepository userRepository})
+      : _userRepository = userRepository,
         super(key: key);
 
   @override

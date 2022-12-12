@@ -8,9 +8,8 @@ import 'Resources/strings.dart';
 class RegisterScreen extends StatelessWidget {
   final UserRepository _userRepository;
 
-  RegisterScreen({Key? key, required UserRepository userRepository})
-      : assert(userRepository != null),
-        _userRepository = userRepository,
+  const RegisterScreen({Key? key, required UserRepository userRepository})
+      : _userRepository = userRepository,
         super(key: key);
 
   @override
@@ -23,7 +22,7 @@ class RegisterScreen extends StatelessWidget {
       body: Center(
         child: BlocProvider<RegisterBloc>(
           create: (context) => RegisterBloc(userRepository: _userRepository),
-          child: RegisterForm(),
+          child: const RegisterForm(),
         ),
       ),
     );

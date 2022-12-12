@@ -107,6 +107,7 @@ class _UploadPageState extends State<UploadPage> with RouteAware {
               FileFormField(
                 validator: (val) {
                   if (val == null) return 'Pick a valid song';
+                  return "";
                 },
                 onChanged: (item) {
                   file = item;
@@ -126,7 +127,7 @@ class _UploadPageState extends State<UploadPage> with RouteAware {
                       state = res;
                     });
                   } catch (e) {
-                    print(e);
+                    rethrow;
                   }
                 },
                 child: const Text('Submit'),

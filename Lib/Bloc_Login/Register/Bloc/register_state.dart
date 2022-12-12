@@ -2,14 +2,14 @@ part of 'register_bloc.dart';
 
 @immutable
 class RegisterState {
-  bool? isUsernameValid;
-  bool? isEmailValid;
-  bool? isPasswordValid;
+  final bool? isUsernameValid;
+  final bool? isEmailValid;
+  final bool? isPasswordValid;
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
 
-  RegisterState({
+  const RegisterState({
     required this.isUsernameValid,
     required this.isEmailValid,
     required this.isPasswordValid,
@@ -19,7 +19,7 @@ class RegisterState {
   });
 
   factory RegisterState.empty() {
-    return RegisterState(
+    return const RegisterState(
       isUsernameValid: true,
       isEmailValid: true,
       isPasswordValid: true,
@@ -30,7 +30,7 @@ class RegisterState {
   }
 
   factory RegisterState.loading() {
-    return RegisterState(
+    return const RegisterState(
       isUsernameValid: true,
       isEmailValid: true,
       isPasswordValid: true,
@@ -41,7 +41,7 @@ class RegisterState {
   }
 
   factory RegisterState.failure() {
-    return RegisterState(
+    return const RegisterState(
       isUsernameValid: true,
       isEmailValid: true,
       isPasswordValid: true,
@@ -52,7 +52,7 @@ class RegisterState {
   }
 
   factory RegisterState.success() {
-    return RegisterState(
+    return const RegisterState(
       isUsernameValid: true,
       isEmailValid: true,
       isPasswordValid: true,

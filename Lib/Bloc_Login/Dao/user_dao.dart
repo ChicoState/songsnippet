@@ -23,7 +23,7 @@ class UserDao {
     try {
       List<Map> users =
           await db.query(userTable, where: 'id = ?', whereArgs: [id]);
-      if (users.length > 0) {
+      if (users.isNotEmpty) {
         return true;
       } else {
         return false;
@@ -39,7 +39,7 @@ class UserDao {
       List<Map> users =
           await db.query(userTable, where: 'id = ?', whereArgs: [id]);
       if (users.isNotEmpty) {
-        return Token(token: "TOKEN " + users[0]['token']);
+        return Token(token: "TOKEN ${users[0]['token']}");
       } else {
         return null;
       }
