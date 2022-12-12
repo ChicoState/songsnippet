@@ -222,6 +222,12 @@ class _CardsStackWidgetState extends State<CardsStackWidget>
                     const SizedBox(width: 20),
                     ActionButtonWidget(
                       onPressed: () {
+                        playSong(draggableItems.last);
+                      },
+                      icon: const Icon(Icons.repeat, color: Colors.yellow)),
+                    const SizedBox(width: 20),
+                    ActionButtonWidget(
+                      onPressed: () {
                         swipeNotifier.value = Swipe.right;
                         _animationController.forward();
                       },
