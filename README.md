@@ -1,5 +1,8 @@
 # Song Snippet
 
+<img width="427" alt="Screen Shot 2022-12-11 at 8 37 26 PM" src="https://user-images.githubusercontent.com/52172832/206961960-72618ae6-25fc-4cc6-a573-507411527d1c.png">
+
+
 ## Dependencies 
 
 ### Django
@@ -11,6 +14,8 @@
 - sqlparse>=0.2.2
 - google-cloud-storage==2.5.0
 - django-cors-headers==3.13.0
+- django-nose==1.4.7
+- coverage==6.5.0
 
 ### Flutter 
 - just_audio: ^0.9.15
@@ -27,13 +32,21 @@
 - file_picker: ^5.2.1
 - dart_code_metrics: ^5.1.0
 
-## Testing
+## Testing with coverage
 
 ### Django
 - from base django directory ```Nusic/``` run ```py manage.py test myapi/tests```
 
 ### Flutter
-- run ```flutter test```
+- run ```flutter test --coverage```
 
+
+## Static analysis
+
+### Django
+- from directory ```myapi``` run ```python -m mccabe --min 1 views.py```
+
+### Flutter
+- run ```flutter pub run dart_code_metrics:metrics analyze lib```
 
 
