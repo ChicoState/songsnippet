@@ -7,7 +7,6 @@ class MusicCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(songObject.name);
     return Container(
       height: 580,
       width: 340,
